@@ -28,7 +28,7 @@ status = check.status_code
 
 if status != 200:
     print("Error, page not found")
-"""
+
 # Intermediate Exercises
 
 fetch = requests.get(url + "/posts")
@@ -54,4 +54,20 @@ session.get("https://httpbin.org/cookies/set/sessionid/abc123")
 response = session.get("https://httpbin.org/cookies")
 # 3. Print the cookies
 print("Cookies:", response.json()["cookies"])
+"""
+# Advanced Exercises
 
+info = {"username": "admin", "password": "hunter2"}
+upload = requests.post("https://httpbin.org/post", data=info)
+response2 = upload.json()
+print(f"Status code: {upload.status_code}")
+print(response2["form"]["username"])
+
+
+for user_id in range(1, 6):
+    response = requests.get(f"https://jsonplaceholder.typicode.com/users/{user_id}")
+    user = response.json()
+
+    print("Username: ", user["username"])
+    print("Website: ", user["website"])
+    print("-" * 30)
