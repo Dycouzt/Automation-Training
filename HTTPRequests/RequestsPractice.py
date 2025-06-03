@@ -5,7 +5,7 @@ import requests
 # Beginner Exercises
 url = "https://jsonplaceholder.typicode.com"
 response = requests.get(url + "/users/2")
-"""
+
 print(f"Status code: {response.status_code}")
 data = response.json()
 print("Username: ", data["name"])
@@ -54,7 +54,7 @@ session.get("https://httpbin.org/cookies/set/sessionid/abc123")
 response = session.get("https://httpbin.org/cookies")
 # 3. Print the cookies
 print("Cookies:", response.json()["cookies"])
-"""
+
 # Advanced Exercises
 
 info = {"username": "admin", "password": "hunter2"}
