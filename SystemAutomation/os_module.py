@@ -47,3 +47,10 @@ os.environ["MY_VAR"] = "value"
 # Access all environment variables
 for key, value in os.environ.items():
     print(f"{key}: {value}")
+
+# Get current working directory
+print(os.getcwd())
+
+# Change working directory
+os.chdir("/tmp")
+print(os.getcwd())
