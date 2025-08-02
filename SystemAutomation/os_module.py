@@ -37,3 +37,13 @@ print(os.path.getsize(full_path))
 
 # Get absolute path
 print(os.path.abspath("file.txt"))
+
+# Get environment variable
+home_dir = os.getenv("HOME")
+
+# Set environment variable
+os.environ["MY_VAR"] = "value"
+
+# Access all environment variables
+for key, value in os.environ.items():
+    print(f"{key}: {value}")
