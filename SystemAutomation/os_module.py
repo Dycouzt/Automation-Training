@@ -54,3 +54,9 @@ print(os.getcwd())
 # Change working directory
 os.chdir("/tmp")
 print(os.getcwd())
+
+# Get the current process ID
+print(os.getpid())
+
+# Get parent process ID
+print(os.getppid())
