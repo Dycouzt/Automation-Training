@@ -42,3 +42,11 @@ Path("note.txt").write_text("System automation with pathlib")
 # Read text from a file
 content = Path("note.txt").read_text()
 print(content)
+
+# List all files and folders in current directory
+for item in Path('.').iterdir():
+    print(item)
+
+# List only .txt files
+for file in Path('.').glob('*.txt'):
+    print(file)
