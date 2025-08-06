@@ -50,3 +50,6 @@ for item in Path('.').iterdir():
 # List only .txt files
 for file in Path('.').glob('*.txt'):
     print(file)
+
+for file in Path('.').rglob('*.py'):
+    print(file)
