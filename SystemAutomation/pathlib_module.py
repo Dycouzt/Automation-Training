@@ -26,3 +26,13 @@ print(p.suffix)         # .txt
 print(p.stem)           # example
 print(p.parent)         # path to parent directory
 print(p.stat().st_size) # file size in bytes
+
+# Create directory
+Path("my_folder").mkdir()
+
+# Create nested directories (if not existing)
+Path("parent/child").mkdir(parents=True, exist_ok=True)
+
+# Create a file (touch equivalent)
+Path("empty.txt").touch()
+
