@@ -16,3 +16,13 @@ abs_path = p.resolve()
 data_path = Path("/home/user") / "documents" / "file.txt"
 print(data_path)  # /home/user/documents/file.txt
 
+p = Path('example.txt')
+
+print(p.exists())       # True if the path exists
+print(p.is_file())      # True if it's a file
+print(p.is_dir())       # True if it's a directory
+print(p.name)           # example.txt
+print(p.suffix)         # .txt
+print(p.stem)           # example
+print(p.parent)         # path to parent directory
+print(p.stat().st_size) # file size in bytes
