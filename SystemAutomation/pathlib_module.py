@@ -36,3 +36,9 @@ Path("parent/child").mkdir(parents=True, exist_ok=True)
 # Create a file (touch equivalent)
 Path("empty.txt").touch()
 
+# Write text to a file
+Path("note.txt").write_text("System automation with pathlib")
+
+# Read text from a file
+content = Path("note.txt").read_text()
+print(content)
