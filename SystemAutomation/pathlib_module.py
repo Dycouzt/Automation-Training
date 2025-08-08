@@ -53,3 +53,9 @@ for file in Path('.').glob('*.txt'):
 
 for file in Path('.').rglob('*.py'):
     print(file)
+
+# Delete a file
+Path("note.txt").unlink()
+
+# Delete an empty directory
+Path("my_folder").rmdir()
