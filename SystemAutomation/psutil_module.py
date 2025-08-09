@@ -20,3 +20,13 @@ print(mem.percent)    # Usage percentage
 # Swap memory
 swap = psutil.swap_memory()
 print(swap.total, swap.used, swap.percent)
+
+# Disk partitions
+print(psutil.disk_partitions())
+
+# Disk usage
+usage = psutil.disk_usage('/')
+print(usage.total, usage.used, usage.percent)
+
+# Disk I/O statistics
+print(psutil.disk_io_counters())
