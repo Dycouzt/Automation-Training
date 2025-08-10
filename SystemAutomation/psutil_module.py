@@ -39,3 +39,7 @@ print(psutil.net_io_counters())
 
 # Per-interface network stats
 print(psutil.net_io_counters(pernic=True)) 
+
+# List all processes with their PID and name
+for proc in psutil.process_iter(['pid', 'name']):
+    print(proc.info)
