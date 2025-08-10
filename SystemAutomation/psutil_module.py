@@ -30,3 +30,12 @@ print(usage.total, usage.used, usage.percent)
 
 # Disk I/O statistics
 print(psutil.disk_io_counters())
+
+# Network interface addresses
+print(psutil.net_if_addrs())
+
+# Network I/O statistics
+print(psutil.net_io_counters())
+
+# Per-interface network stats
+print(psutil.net_io_counters(pernic=True)) 
