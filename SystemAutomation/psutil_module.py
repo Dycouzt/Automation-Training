@@ -1,4 +1,5 @@
 import psutil
+import datetime
 
 # CPU usage percentage
 print(psutil.cpu_percent(interval=1))
@@ -43,3 +44,6 @@ print(psutil.net_io_counters(pernic=True))
 # List all processes with their PID and name
 for proc in psutil.process_iter(['pid', 'name']):
     print(proc.info)
+
+boot_time = psutil.boot_time()
+print(datetime.datetime.fromtimestamp(boot_time))
