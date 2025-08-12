@@ -47,3 +47,9 @@ for proc in psutil.process_iter(['pid', 'name']):
 
 boot_time = psutil.boot_time()
 print(datetime.datetime.fromtimestamp(boot_time))
+
+p = psutil.Process(1)  # Process with PID 1
+print(p.name())        # Process name
+print(p.status())      # Running, sleeping, etc.
+print(p.cpu_percent(interval=1))
+print(p.memory_info()) # Memory usage
