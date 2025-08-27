@@ -8,3 +8,5 @@ print(f"before: {os.getcwd()}")
 os.chdir("../Modules") # Changes working directory.
 print(f"after: {os.getcwd()}")
 
+print(os.listdir(".")) # Lists all files in the current directory. os.listdir(path=".")
+
