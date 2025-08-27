@@ -18,4 +18,6 @@ os.remove("image.txt") # Deletes file "image.txt"
 os.rmdir("new_directory") # Deletes a single directory.
 os.removedirs("new_directory_2.0/nested_folder") # Removes folder and then "nested" if empty.
 
+os.rename("image.txt", "background.txt") # Renames a file.
+
 
