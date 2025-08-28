@@ -28,3 +28,15 @@ print(os.path.exists("file.txt"))  # Checks if a file exists. (True/False)
 print(os.path.isfile("file.txt")) # Checks if path is a file.
 print(os.path.isdir("folder")) # Checks if path is a directory.
 
+print(os.path.abspath("file.txt")) # Returns the absolute path.
+
+print(os.environ)  # Prints a mapping of all environment variables
+'''
+Expected Output:
+environ({
+  'PATH': '/usr/bin:/bin:/usr/local/bin',
+  'HOME': '/Users/diego',
+  'SHELL': '/bin/zsh',
+  'LANG': 'en_US.UTF-8'
+})
+'''
