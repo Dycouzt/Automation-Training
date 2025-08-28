@@ -24,4 +24,7 @@ path = os.path.join("logs", "app.log")  # Safely build a path by joining folder 
 data_file = os.path.join(base_dir, "data", "input.csv")  # Create a cross-platform path to the data file
 file_path = os.path.join(folder, filename)  # Combine directory path and filename into a full path
 
+print(os.path.exists("file.txt"))  # Checks if a file exists. (True/False) 
+print(os.path.isfile("file.txt")) # Checks if path is a file.
+print(os.path.isdir("folder")) # Checks if path is a directory.
 
