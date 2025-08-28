@@ -40,3 +40,4 @@ environ({
   'LANG': 'en_US.UTF-8'
 })
 '''
+os.system("echo Hello World")  # Runs terminal command.
