@@ -20,4 +20,5 @@ os.removedirs("new_directory_2.0/nested_folder") # Removes folder and then "nest
 
 os.rename("image.txt", "background.txt") # Renames a file.
 
-os.path.join()
+path = os.path.join("logs", "app.log")  # Safely build a path by joining folder and file name
+
