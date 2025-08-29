@@ -3,3 +3,6 @@
 from pathlib import Path
 
 print(Path.cwd) # Prints current working directory.
+p = Path("folder/subfolder/image.txt")
+print(p) # Creates a path object.
+
