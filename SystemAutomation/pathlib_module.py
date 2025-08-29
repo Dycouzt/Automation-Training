@@ -15,3 +15,7 @@ p2 = Path("file.txt")
 print(p.is_file()) # Distinguishes between files and directories.
 print(p.is_dir())
 
+p3 = Path(".")
+for item in p.iterdir(): # Iterates through directory contents.
+    print(item)
+
