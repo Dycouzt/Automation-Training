@@ -17,5 +17,9 @@ print(p.is_dir())
 
 p3 = Path(".")
 for item in p.iterdir(): # Iterates through directory contents.
-    print(item)
+    print(item) 
+    """
+      Example output: file1.txt file2.py subfolder within the cwd.
+    """
+Path.mkdir("new_folder") # Creates a new folder, same as os.mkdir
 
