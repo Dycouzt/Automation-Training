@@ -25,7 +25,17 @@ Path.mkdir("new_folder") # Creates a new folder, same as os.mkdir
 p = Path("new_folder")
 p.mkdir(exist_ok=True)  # exist_ok prevents error if it already exists
 
-Path("new_folder").rmdir() # Removes a given directory.
+Path("new_folder").rmdir() # Removes a given directory. Must be empty in order to be successful.
+p = Path("old.txt")
+p.rename("new.txt") # Renames a given directory.
+
+p = Path("folder/subfolder/file.txt")
+print(p.name)     # file.txt
+print(p.stem)     # file
+print(p.suffix)   # .txt
+print(p.parent)   # folder/subfolder
+print(p.parts)    # ('folder', 'subfolder', 'file.txt')
+
 
 
 
