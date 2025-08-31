@@ -36,6 +36,9 @@ print(p.suffix)   # .txt
 print(p.parent)   # folder/subfolder
 print(p.parts)    # ('folder', 'subfolder', 'file.txt')
 
+p = Path("hello.txt")
+p.write_text("Hello, World!") # Convenient way to writing and reading text to small files.
+print(p.read_text())
 
 
 
