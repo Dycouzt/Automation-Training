@@ -22,4 +22,10 @@ for item in p.iterdir(): # Iterates through directory contents.
       Example output: file1.txt file2.py subfolder within the cwd.
     """
 Path.mkdir("new_folder") # Creates a new folder, same as os.mkdir
+p = Path("new_folder")
+p.mkdir(exist_ok=True)  # exist_ok prevents error if it already exists
+
+Path("new_folder").rmdir() # Removes a given directory.
+
+
 
