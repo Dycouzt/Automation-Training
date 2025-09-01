@@ -40,5 +40,9 @@ p = Path("hello.txt")
 p.write_text("Hello, World!") # Convenient way to writing and reading text to small files.
 print(p.read_text())
 
+p = Path(".")
+for file in p.glob("*.py"): # Finds files matching a pattern.
+    print(file)
+
 
 
