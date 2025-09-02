@@ -8,12 +8,38 @@ import psutil
 
 # Process enumeration and inspection
 
-psutil.process_iter() # Iterate over running processes.
+for proc in psutil.process_iter(['pid', 'name', 'username']): # Iterate over running processes.
+    print(proc.info)
+# example output: {'pid': 1, 'name': 'systemd', 'username': 'root'}
+#                 {'pid': 2345, 'name': 'python', 'username': 'diego'}
 
 pid = 91283
-psutil.Process(pid) # Inspect a specific process. (process IDF)
+psutil.Process(pid) # Inspect a specific process. (process ID)
 
-# CPU Information
+# Process Details
+
+p = psutil.Process(2345)
+print(p.pid)         # 2345
+print(p.name())      # 'python'
+print(p.exe())       # '/usr/bin/python3.10'
+print(p.cwd())       # Current working directory
+print(p.cmdline())   # ['python', 'script.py']
+print(p.username())  # 'diego'
+print(p.status())    # 'running'
+print(p.create_time())
+print(p.cpu_percent(interval=1.0))
+print(p.memory_info())
+      
+# CPU usage monitoring and information
+
+psutil.cpu_percent(interval=1) # CPU utilization over 1 second.
+psutil.cpu_count() # Number of cores.
+psutil.cpu_times() # Breakdown of CPU time (user, system, idle).
+""" example output: 
+            12.5
+            8
+            scputimes(user=1200.1, system=500.3, idle=30000.0, ...)
+"""
 
 print(psutil.cpu_count(logical=True))   # counts hyper-threaded cores. e.g., 8
 print(psutil.cpu_count(logical=False))  # physical cores only. e.g., 4
