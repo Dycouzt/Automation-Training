@@ -6,6 +6,13 @@ Running processes (start time, PID, memory/cpu usage, etc.).
 
 import psutil
 
+# Process enumeration and inspection
+
+psutil.process_iter() # Iterate over running processes.
+
+pid = 91283
+psutil.Process(pid) # Inspect a specific process. (process IDF)
+
 # CPU Information
 
 print(psutil.cpu_count(logical=True))   # counts hyper-threaded cores. e.g., 8
@@ -23,4 +30,5 @@ print(mem.total, mem.available, mem.used, mem.percent)
 # Example output: 17179869184  1023456789  7890123456  45.8
 
 print(psutil.swap_memory()) # Returns swap (paging) memory stats.
+# Example output: sswap(total=2147483648, used=0, free=2147483648, percent=0.0, ...)
 
