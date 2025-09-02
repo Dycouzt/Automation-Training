@@ -18,4 +18,9 @@ print(psutil.cpu_times()) # Returns time spent by CPU in different modes (user, 
 
 # Memory Information
 
+mem = psutil.virtual_memory() # returns system memory stats
+print(mem.total, mem.available, mem.used, mem.percent)
+# Example output: 17179869184  1023456789  7890123456  45.8
+
+print(psutil.swap_memory()) # Returns swap (paging) memory stats.
 
