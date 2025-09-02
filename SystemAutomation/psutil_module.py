@@ -47,9 +47,9 @@ print(psutil.cpu_count(logical=False))  # physical cores only. e.g., 4
 print(psutil.cpu_percent(interval=1))  # e.g., 12.5 (interval=1) -> waits 1 second before measuring.
 
 print(psutil.cpu_times()) # Returns time spent by CPU in different modes (user, system, idle).
- # Example output: scputimes(user=1234.56, system=789.01, idle=45678.9, ...)
+ # example output: scputimes(user=1234.56, system=789.01, idle=45678.9, ...)
 
-# Memory Information
+# memory usage monitoring and information
 
 mem = psutil.virtual_memory() # returns system memory stats
 print(mem.total, mem.available, mem.used, mem.percent)
@@ -58,3 +58,7 @@ print(mem.total, mem.available, mem.used, mem.percent)
 print(psutil.swap_memory()) # Returns swap (paging) memory stats.
 # Example output: sswap(total=2147483648, used=0, free=2147483648, percent=0.0, ...)
 
+# Disk usage and I/O
+
+print(psutil.disk_usage('/')) # (path) Storage usage.
+print(psutil.disk_io_counters()) # read/write statistics.
