@@ -62,3 +62,15 @@ print(psutil.swap_memory()) # Returns swap (paging) memory stats.
 
 print(psutil.disk_usage('/')) # (path) Storage usage.
 print(psutil.disk_io_counters()) # read/write statistics.
+""" expected output: 
+        sdiskusage(total=500GB, used=300GB, free=200GB, percent=60)
+        sdiskio(read_count=100000, write_count=50000, read_bytes=12345678, write_bytes=98765432)
+"""
+
+# Network connection and traffic
+
+print(psutil.net_io_counters()) # Network I/O stats.
+for conn in psutil.net_connections(kind='inet'): # List active network connections.
+    print(conn.laddr, "->", conn.raddr, conn.status)
+
+psutil.net_if_addrs() # IP addresses per network interface.
