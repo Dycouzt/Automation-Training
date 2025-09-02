@@ -72,5 +72,17 @@ print(psutil.disk_io_counters()) # read/write statistics.
 print(psutil.net_io_counters()) # Network I/O stats.
 for conn in psutil.net_connections(kind='inet'): # List active network connections.
     print(conn.laddr, "->", conn.raddr, conn.status)
+""" expected output: 
+        snetio(bytes_sent=123456, bytes_recv=654321, packets_sent=1000, packets_recv=2000)
+        127.0.0.1:54321 -> 93.184.216.34:80 ESTABLISHED
+"""
 
 psutil.net_if_addrs() # IP addresses per network interface.
+
+# System uptime
+
+import datetime
+
+print(datetime.datetime.fromtimestamp(psutil.boot_time())) # System boot time.
+# expected output: 2025-08-24 08:00:00
+# Use case: forensic timeline (e.g., was the machine rebooted after compromise?).
