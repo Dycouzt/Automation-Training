@@ -3,3 +3,10 @@
 System resources (CPU, memory, disks, network).
 Running processes (start time, PID, memory/cpu usage, etc.).
  """
+
+import psutil
+
+print(psutil.cpu_count(logical=True))   # counts hyper-threaded cores. e.g., 8
+print(psutil.cpu_count(logical=False))  # physical cores only. e.g., 4
+
+print(psutil.cpu_percent(interval=1))  # e.g., 12.5 (interval=1) -> waits 1 second before measuring.
