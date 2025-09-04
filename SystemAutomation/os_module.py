@@ -1,4 +1,4 @@
-# Topic Review OS Module
+# Topic Review OS Module, essential for file, directory, and environment management.
 
 import os
 
@@ -21,8 +21,8 @@ os.removedirs("new_directory_2.0/nested_folder") # Removes folder and then "nest
 os.rename("image.txt", "background.txt") # Renames a file.
 
 path = os.path.join("logs", "app.log")  # Safely build a path by joining folder and file name
-data_file = os.path.join(base_dir, "data", "input.csv")  # Create a cross-platform path to the data file
-file_path = os.path.join(folder, filename)  # Combine directory path and filename into a full path
+data_file = os.path.join("base_dir", "data", "input.csv")  # Create a cross-platform path to the data file
+file_path = os.path.join("folder", "filename")  # Combine directory path and filename into a full path
 
 print(os.path.exists("file.txt"))  # Checks if a file exists. (True/False) 
 print(os.path.isfile("file.txt")) # Checks if path is a file.
@@ -40,4 +40,4 @@ environ({
   'LANG': 'en_US.UTF-8'
 })
 '''
-os.system("echo Hello World")  # Runs terminal command.
+os.system("echo Hello World")  # Runs terminal command. Important for automation scripts.
