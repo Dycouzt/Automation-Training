@@ -24,5 +24,10 @@ print(usage) # Use case: Monitor disk space for large AI datasets or logs.
 
 shutil.make_archive("base_name", "format", "root_dir") # creates an archive (zip, tar, etc.) of a directory.
 shutil.make_archive("dataset_backup", "zip", "dataset") # example.
+# Use case: Archiving evidence in cybersecurity or compressing training datasets.
+
+shutil.unpack_archive("filename", extract_dir=None) # Extracts archives (zip, tar, etc.) to a folder.
+shutil.unpack_archive("dataset_backup.zip", "restored_dataset") # example.
+
 
 
