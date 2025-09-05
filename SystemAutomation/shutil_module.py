@@ -11,5 +11,11 @@ shutil.copy("data.csv", "backup_data_metadata.csv") # Copies a file and preserve
 
 shutil.copytree("dataset", "dataset_backup", dirs_exist_ok=True)
 """
-
+Copies an entire directory tree.
+dirs_exist_ok=True allows merging into an existing directory.
 """
+
+shutil.move("old_logs/log1.txt", "archived_logs/log1.txt") # moves a folder to another location.
+
+shutil.rmtree("temp_folder") # Deletes an entire tree directory. Use with caution.
+
