@@ -29,5 +29,11 @@ shutil.make_archive("dataset_backup", "zip", "dataset") # example.
 shutil.unpack_archive("filename", extract_dir=None) # Extracts archives (zip, tar, etc.) to a folder.
 shutil.unpack_archive("dataset_backup.zip", "restored_dataset") # example.
 
+"""
+Key takeaways
 
+- shutil complements os and pathlib for high-level file operations.
+- Use these functions to backup data, automate evidence collection, manage datasets, or clean up temporary 
+directories safely.
+"""
 
