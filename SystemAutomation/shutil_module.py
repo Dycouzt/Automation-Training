@@ -19,3 +19,10 @@ shutil.move("old_logs/log1.txt", "archived_logs/log1.txt") # moves a folder to a
 
 shutil.rmtree("temp_folder") # Deletes an entire tree directory. Use with caution.
 
+usage = shutil.disk_usage("/") # Returns total, used, and free space of a filesystem.
+print(usage) # Use case: Monitor disk space for large AI datasets or logs.
+
+shutil.make_archive("base_name", "format", "root_dir") # creates an archive (zip, tar, etc.) of a directory.
+shutil.make_archive("dataset_backup", "zip", "dataset") # example.
+
+
