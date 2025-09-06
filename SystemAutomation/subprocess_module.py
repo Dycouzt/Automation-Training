@@ -6,3 +6,9 @@ subprocess.run() # Simplest way to run a command. Waits until command finishes a
 
 result = subprocess.run(["echo", "Hello"], capture_output=True, text=True) # example.
 print(result.stdout) # expected output: "Hello".
+
+subprocess.Popen() # More advanced; allows asynchronous process execution.
+proc = subprocess.Popen(["ping", "-c", "2", "google.com"], stdout=subprocess.PIPE, text=True)
+output, _ = proc.communicate() 
+print(output)
+
