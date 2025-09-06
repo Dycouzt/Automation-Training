@@ -23,3 +23,9 @@ print("STDOUT:", result.stdout)
 print("STDERR:", result.stderr)
 # Useful for logging or analyzing command results.
 
+# Running Commands in Shell (shell=True)
+subprocess.run("echo Hello from shell", shell=True) 
+"""
+Runs the command through the shell (like typing in terminal).
+Caution: Can be insecure if using unsanitized user input.
+"""
