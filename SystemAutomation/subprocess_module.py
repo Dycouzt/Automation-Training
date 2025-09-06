@@ -11,4 +11,8 @@ subprocess.Popen() # More advanced; allows asynchronous process execution.
 proc = subprocess.Popen(["ping", "-c", "2", "google.com"], stdout=subprocess.PIPE, text=True)
 output, _ = proc.communicate() 
 print(output)
+""" expected output: PING google.com (142.250.187.46): 56 data bytes
+64 bytes from 142.250.187.46: icmp_seq=0 ttl=115 time=15.2 ms
+64 bytes from 142.250.187.46: icmp_seq=1 ttl=115 time=14.9 ms
+"""
 
