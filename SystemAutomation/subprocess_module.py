@@ -15,4 +15,11 @@ print(output)
 64 bytes from 142.250.187.46: icmp_seq=0 ttl=115 time=15.2 ms
 64 bytes from 142.250.187.46: icmp_seq=1 ttl=115 time=14.9 ms
 """
+# use case: Use case: Running long-running commands (like network scans) while streaming their output.
+
+# Capturing Output with capture_output / stdout / stderr
+result = subprocess.run(["ls", "-l"], capture_output=True, text=True)
+print("STDOUT:", result.stdout)
+print("STDERR:", result.stderr)
+# Useful for logging or analyzing command results.
 
