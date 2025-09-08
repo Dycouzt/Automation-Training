@@ -1,6 +1,6 @@
 # Topic Review OS Module, essential for file, directory, and environment management.
 
-import os
+import os # Key Idea: "raw building blocks"
 
 print(os.getcwd())  # Returns the current working directory.
 

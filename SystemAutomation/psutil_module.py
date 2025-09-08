@@ -4,7 +4,7 @@ System resources (CPU, memory, disks, network).
 Running processes (start time, PID, memory/cpu usage, etc.).
  """
 
-import psutil
+import psutil # Key Idea: "resource and process monitor"
 
 # Process enumeration and inspection
 

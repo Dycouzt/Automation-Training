@@ -1,6 +1,6 @@
 # Topic Review pathlib module. Used for object-oriented filesystem paths. Replaces some OS and OS.path functions.
 
-from pathlib import Path
+from pathlib import Path # Key Idea: "modern path manager"
 
 print(Path.cwd) # Prints current working directory.
 

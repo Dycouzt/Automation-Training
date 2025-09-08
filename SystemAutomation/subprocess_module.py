@@ -1,6 +1,6 @@
 # Topic Review subprocess module.
 
-import subprocess
+import subprocess # Key Idea: "bridge to shell/system commands"
 
 subprocess.run() # Simplest way to run a command. Waits until command finishes and returns a CompletedProcess object.
 

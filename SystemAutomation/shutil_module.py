@@ -1,6 +1,6 @@
 # Topic Review shutil module. shutil stands for shell utilities.
 
-import shutil
+import shutil # Key Idea: "file manager / archiver"
 
 shutil.copy("data.csv", "backup_data.csv")
 """
