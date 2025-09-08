@@ -10,29 +10,21 @@ import os
     - Lists all files in the directory.
 """
 
-print(os.getcwd())
-
 def practice_directory_creation():
-    
-    # Create directory (ignore if it already exists)
-    os.makedirs("practice", exist_ok=True) # exist_ok=True only usable for os.mkdirs! 
-    print("success! ")
-    expected_cwd = os.path.join(os.getcwd(), "practice")
-    cwd = os.getcwd()
-    print("Current working directory:", cwd)
+    # Create 'practice' directory if it doesn't exist
+    os.makedirs("practice", exist_ok=True)
+    print("Directory 'practice' created (or already exists).")
 
-    # Change into it
-    if cwd == expected_cwd:
-        os.chdir("practice")
-    else:
-         print("practice directory doesn't exist yet! ")
+    # Change into the new directory
+    os.chdir("practice")
+    print("Changed into directory:", os.getcwd())
 
     # Create three empty files
     for filename in ["a.txt", "b.txt", "c.txt"]:
-            open(filename, "w").close()     # "W" means write. Important to .close() after creating files.
-    print("practice directory not exists yet! ")
-    
-     # List files
-    print(os.listdir("."))
+        open(filename, "w").close()
+    print("Empty files created: a.txt, b.txt, c.txt")
+
+    # List files in the directory
+    print("Files inside 'practice':", os.listdir("."))
 
 practice_directory_creation()
