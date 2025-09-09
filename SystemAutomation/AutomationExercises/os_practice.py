@@ -12,7 +12,7 @@ import pathlib as Path
     - Creates three empty files: a.txt, b.txt, c.txt.
     - Lists all files in the directory.
 """
-"""
+
 def practice_directory_creation():
     # Create 'practice' directory if it doesn't exist
     os.makedirs("practice", exist_ok=True)
@@ -31,7 +31,7 @@ def practice_directory_creation():
     print("Files inside 'practice':", os.listdir("."))
 
 practice_directory_creation()
-"""
+
 """
 2. Write a function that takes a directory path and prints:
 All files.
@@ -41,20 +41,18 @@ Absolute paths of each file.
 
 def fls_and_subdirs():
 
-    script_dir = Path(__file__).resolve().parent
-
+    # Establish the parent directory of your script in order to call it from everywhere.
+    script_dir = Path(__file__).resolve().parent 
     networking_dir = script_dir.parent.parent / "Networking"
 
-    for item in os.listdir(networking_dir):
-        full_path = os.path.join(networking_dir, item)  # Safe join
-        abs_path = os.path.abspath(full_path)
+    # pathlib instead of os because of modernity
+    for item in networking_dir.iterdir():
+        if item.is_file():
+            print(f"File: {item.name} | Absolute Path: {item.resolve()}")
+        elif item.is_dir():
+            print(f"Directory: {item.name} | Absolute Path: {item.resolve()}")
 
-        if os.path.isfile(full_path):
-            print(f"File: {item} | Absolute Path: {abs_path}")
-        elif os.path.isdir(full_path):
-            print(f"Directory: {item} | Absolute Path: {abs_path}")
-
-fls_and_subdirs("")
+fls_and_subdirs()
 
 """
 3. Write a script that:
@@ -62,6 +60,22 @@ Checks if notes.txt exists.
 If yes, renames it to notes_old.txt.
 If no, creates an empty notes.txt.
 """
+def fls_checker():
+    base_dir = "/Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises"
+    script_path = os.path.join(base_dir, "os_practice.py")
+    notes_path = os.path.join(base_dir, "notes.txt")
+    new_path = os.path.join(base_dir, "old_notes.txt")
+
+    for item in os.listdir(base_dir):
+        full_path = os.path.join(base_dir, item)
+        abs_path = os.path.abspath(full_path)
+
+        if abs_path == notes_path:
+            os.rename(notes_path, new_path)
+        else:
+            open("notes.txt", "r").close()
+            
+fls_checker()
 
 """
 4. Write a script that:
