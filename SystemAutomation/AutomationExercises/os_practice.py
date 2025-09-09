@@ -1,6 +1,9 @@
 # os module practice exercises.
 
 import os
+import pathlib as Path
+
+# cwd: /Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises/os_practice.py
 
 """
 1. Create a script that:
@@ -36,9 +39,14 @@ All subdirectories.
 Absolute paths of each file.
 """
 
-def fls_and_subdirs(dir_path):
-    for item in os.listdir(dir_path):
-        full_path = os.path.join(dir_path, item)  # Safe join
+def fls_and_subdirs():
+
+    script_dir = Path(__file__).resolve().parent
+
+    networking_dir = script_dir.parent.parent / "Networking"
+
+    for item in os.listdir(networking_dir):
+        full_path = os.path.join(networking_dir, item)  # Safe join
         abs_path = os.path.abspath(full_path)
 
         if os.path.isfile(full_path):
@@ -46,7 +54,7 @@ def fls_and_subdirs(dir_path):
         elif os.path.isdir(full_path):
             print(f"Directory: {item} | Absolute Path: {abs_path}")
 
-fls_and_subdirs("Networking")
+fls_and_subdirs("")
 
 """
 3. Write a script that:
