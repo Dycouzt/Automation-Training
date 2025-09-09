@@ -62,20 +62,15 @@ If no, creates an empty notes.txt.
 """
 def fls_checker():
     base_dir = "/Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises"
-    script_path = os.path.join(base_dir, "os_practice.py")
     notes_path = os.path.join(base_dir, "notes.txt")
-    new_path = os.path.join(base_dir, "old_notes.txt")
+    old_notes_path = os.path.join(base_dir, "old_notes.txt")
 
-    for item in os.listdir(base_dir):
-        full_path = os.path.join(base_dir, item)
-        abs_path = os.path.abspath(full_path)
-
-        if abs_path == notes_path:
-            os.rename(notes_path, new_path)
-            print("notes.txt renamed to old_notes.txt. ")
-        else:
-            open("notes.txt", "x").close()
-            print("notes.txt created. ")
+    if os.path.exists(notes_path):
+        os.rename(notes_path, old_notes_path)
+        print("notes.txt renamed to old_notes.txt.")
+    else:
+        open(notes_path, "x").close()
+        print("notes.txt created.")
 
 fls_checker()
 
