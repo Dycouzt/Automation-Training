@@ -72,9 +72,11 @@ def fls_checker():
 
         if abs_path == notes_path:
             os.rename(notes_path, new_path)
+            print("notes.txt renamed to old_notes.txt. ")
         else:
-            open("notes.txt", "r").close()
-            
+            open("notes.txt", "x").close()
+            print("notes.txt created. ")
+
 fls_checker()
 
 """
