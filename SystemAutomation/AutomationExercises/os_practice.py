@@ -35,10 +35,16 @@ All files.
 All subdirectories.
 Absolute paths of each file.
 """
+
 def fls_and_subdirs(dir_path):
-    os.listdir(dir_path)
-    for dir in dir_path:
-        os.path.abspath()
+    for item in os.listdir(dir_path):
+        full_path = os.path.join(dir_path, item)  # Safe join
+        abs_path = os.path.abspath(full_path)
+
+        if os.path.isfile(full_path):
+            print(f"File: {item} | Absolute Path: {abs_path}")
+        elif os.path.isdir(full_path):
+            print(f"Directory: {item} | Absolute Path: {abs_path}")
 
 fls_and_subdirs("Networking")
 
