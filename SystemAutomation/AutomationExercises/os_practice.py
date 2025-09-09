@@ -9,7 +9,7 @@ import os
     - Creates three empty files: a.txt, b.txt, c.txt.
     - Lists all files in the directory.
 """
-
+"""
 def practice_directory_creation():
     # Create 'practice' directory if it doesn't exist
     os.makedirs("practice", exist_ok=True)
@@ -28,3 +28,28 @@ def practice_directory_creation():
     print("Files inside 'practice':", os.listdir("."))
 
 practice_directory_creation()
+"""
+"""
+2. Write a function that takes a directory path and prints:
+All files.
+All subdirectories.
+Absolute paths of each file.
+"""
+
+"""
+3. Write a script that:
+Checks if notes.txt exists.
+If yes, renames it to notes_old.txt.
+If no, creates an empty notes.txt.
+"""
+
+"""
+4. Write a script that:
+Reads the environment variable PATH.
+Splits it by : (or ; on Windows).
+Prints each path component on a new line.
+"""
+
+"""
+5. Write a script that deletes all .tmp files inside the current directory and its subdirectories.
+"""
