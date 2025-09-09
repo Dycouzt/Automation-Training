@@ -35,6 +35,12 @@ All files.
 All subdirectories.
 Absolute paths of each file.
 """
+def fls_and_subdirs(dir_path):
+    os.listdir(dir_path)
+    for dir in dir_path:
+        os.path.abspath()
+
+fls_and_subdirs("Networking")
 
 """
 3. Write a script that:
