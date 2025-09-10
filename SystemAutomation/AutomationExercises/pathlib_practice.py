@@ -1,0 +1,35 @@
+# pathlib practice exercises.
+
+import pathlib as Path
+
+# cwd: /Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises/pathlib_practice.py
+
+"""
+1. Create a Path object pointing to your home directory. Print its .parts, .parent, and .name.
+"""
+home_dir = 
+"""
+2. Create a folder called practice_pathlib. 
+Inside it, create three text files (a.txt, b.txt, c.txt) with some text using .write_text(). 
+List all files with .iterdir().
+"""
+
+"""
+3. Write a script that checks if notes.txt exists.
+If yes, read and print its content.
+If not, create it and write "New notes file created!".
+"""
+
+"""
+4. In your current directory, find all .py files using .glob("*.py")
+and print their absolute paths.
+"""
+
+"""
+5. Rename a.txt to alpha.txt and delete b.txt.
+"""
+
+"""
+6. Write a script that searches recursively for all .log files inside your home directory 
+and prints their sizes in bytes.
+"""
