@@ -41,23 +41,22 @@ If yes, read and print its content.
 If not, create it and write "New notes file created!".
 """
 def if_exists():
-    # create base directory path to call it anywhere.
+    # Resolve base directory relative to this script
     base_dir = Path(__file__).resolve().parent
 
-    # create notes path (if it exists).
-    notes = Path(base_dir / "notes.txt")
+    # Define path to notes.txt
+    notes = base_dir / "notes.txt"
 
-    # if notes.txt exists read text.
-    if Path.exists(notes):
-        content = notes.read_text()
-        print(content)
-
-    # if it doesn't, create file and add text.
+    if notes.exists():
+        # Read and return text if file exists
+        return notes.read_text()
     else:
+        # Create file and write initial content
         notes.touch()
-        notes.write_text("New notes file created! ")
+        notes.write_text("New notes file created!")
+        return "notes.txt was created."
 
-if_exists()
+print(if_exists())
 
 """
 4. In your current directory, find all .py files using .glob("*.py")
