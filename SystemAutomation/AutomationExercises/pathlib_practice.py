@@ -7,7 +7,14 @@ import pathlib as Path
 """
 1. Create a Path object pointing to your home directory. Print its .parts, .parent, and .name.
 """
-home_dir = 
+def home_path():
+    home_dir = Path.home()
+    print(f"The home directory parts are: {home_dir.parts}")
+    print(f"The home directory's parent directory is: {home_dir.parent}")
+    print(f"The home directory's name is: {home_dir.name}")
+
+home_path()
+
 """
 2. Create a folder called practice_pathlib. 
 Inside it, create three text files (a.txt, b.txt, c.txt) with some text using .write_text(). 
