@@ -40,6 +40,22 @@ folder_creation()
 If yes, read and print its content.
 If not, create it and write "New notes file created!".
 """
+def if_exists():
+    # create base directory path to call it anywhere.
+    base_dir = Path(__file__).resolve().parent
+
+    # create notes path (if it exists).
+    notes = Path(base_dir / "notes.txt")
+
+    # if notes.txt exists read text.
+    if notes.exist():
+        notes.read_text()
+    # if it doesn't, create file and add text.
+    else:
+        notes.touch
+        notes.write_text("New notes file created! ")
+
+if_exists()
 
 """
 4. In your current directory, find all .py files using .glob("*.py")
