@@ -100,3 +100,16 @@ env_read()
 """
 5. Write a script that deletes all .tmp files inside the current directory and its subdirectories.
 """
+def tmp_deleting():
+
+    files = []
+    tmp_files_dict = []
+
+    base_dir = "/Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises"
+    for file in os.listdir(base_dir):
+        if file.is_file():
+            file.append(files)
+            full_path = os.path.join(base_dir, "file")
+            abs_path = os.path.abspath(full_path)
+
+            if abs_path 
