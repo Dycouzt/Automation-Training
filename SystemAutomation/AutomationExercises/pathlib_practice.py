@@ -21,17 +21,17 @@ Inside it, create three text files (a.txt, b.txt, c.txt) with some text using .w
 List all files with .iterdir().
 """
 def folder_creation():
-
     # create folder
     p = Path("practice_pathlib")
-    p.mkdir(exists_ok=True)
+    p.mkdir(exist_ok=True)
 
-    # create text files
+    # create text files with content
     for filename in ["a.txt", "b.txt", "c.txt"]:
-        filename.write_text("Hello") # add text using write_text()
-    
-    # list all items in directory.
-    print(p.iterdir())
+        (p / filename).write_text("Hello")
+
+    # list all items in directory
+    for item in p.iterdir():
+        print(item)
 
 folder_creation()
 
