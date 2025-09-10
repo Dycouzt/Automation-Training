@@ -80,7 +80,23 @@ Reads the environment variable PATH.
 Splits it by : (or ; on Windows).
 Prints each path component on a new line.
 """
+def env_read():
+    # Get PATH environment variable
+    path_value = os.environ.get('PATH')
+    
+    if path_value is None:
+        print("PATH variable not found.")
+        return
+    
+    # Use os.pathsep (handles ':' on Linux/Mac, ';' on Windows)
+    path_entries = path_value.split(os.pathsep)
+    
+    # Print each entry
+    for entry in path_entries:
+        print(entry)
 
+# Run the function
+env_read()
 """
 5. Write a script that deletes all .tmp files inside the current directory and its subdirectories.
 """
