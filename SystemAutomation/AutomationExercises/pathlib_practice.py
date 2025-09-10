@@ -48,11 +48,13 @@ def if_exists():
     notes = Path(base_dir / "notes.txt")
 
     # if notes.txt exists read text.
-    if notes.exist():
-        notes.read_text()
+    if Path.exists(notes):
+        content = notes.read_text()
+        print(content)
+
     # if it doesn't, create file and add text.
     else:
-        notes.touch
+        notes.touch()
         notes.write_text("New notes file created! ")
 
 if_exists()
