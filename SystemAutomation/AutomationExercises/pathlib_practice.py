@@ -9,9 +9,9 @@ import pathlib as Path
 """
 def home_path():
     home_dir = Path.home()
-    print(f"The home directory parts are: {home_dir.parts}")
-    print(f"The home directory's parent directory is: {home_dir.parent}")
-    print(f"The home directory's name is: {home_dir.name}")
+    print(f"The home directory parts are: ",  home_dir.parts)
+    print(f"The home directory's parent directory is: ", home_dir.parent)
+    print(f"The home directory's name is: ", home_dir.name)
 
 home_path()
 
@@ -20,6 +20,20 @@ home_path()
 Inside it, create three text files (a.txt, b.txt, c.txt) with some text using .write_text(). 
 List all files with .iterdir().
 """
+def folder_creation():
+
+    # create folder
+    p = Path("practice_pathlib")
+    p.mkdir(exists_ok=True)
+
+    # create text files
+    for filename in ["a.txt", "b.txt", "c.txt"]:
+        filename.write_text("Hello") # add text using write_text()
+    
+    # list all items in directory.
+    print(p.iterdir())
+
+folder_creation()
 
 """
 3. Write a script that checks if notes.txt exists.
