@@ -1,6 +1,7 @@
 # pathlib practice exercises.
 
 from pathlib import Path
+import sys
 
 # cwd: /Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises/pathlib_practice.py
 
@@ -80,25 +81,37 @@ py_files()
 5. Rename a.txt to alpha.txt and delete b.txt.
 """
 def renaming_deleting():
-
     # Establish file paths
-    a = Path("practice_pathlib" / "a.txt")
-    b = Path("practice_pathlib" / "b.txt")
+    a = Path("practice_pathlib") / "a.txt"
+    b = Path("practice_pathlib") / "b.txt"
 
     # Search and rename "a.txt" to "alpha.txt"
     if a.exists():
-        a.rename("alpha.txt")
-
+        new_name = a.parent / "alpha.txt"
+        a.rename(new_name)
+        print(f"{a.name} renamed to {new_name.name}")
     else:
-        print("File does not exist. ")
+        print("a.txt does not exist.")
 
     # Delete "b.txt"
-    b.unlink()
-    print(" b.txt has been deleted. ")
-
-renaming_deleting()
+    if b.exists():
+        b.unlink()
+        print("b.txt has been deleted.")
+    else:
+        print("b.txt does not exist.")
 
 """
 6. Write a script that searches recursively for all .log files inside your home directory 
 and prints their sizes in bytes.
 """
+def recursive_search():
+    home_dir = Path.home()
+    found = False
+
+    for file in home_dir.iterdir():
+        if file.match("*.log"):
+            print(f"File name: {file} | File size in bytes: {sys.getsize(file)}")
+        if not found:
+            print("No .log files were found. ")
+
+recursive_search()
