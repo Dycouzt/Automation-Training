@@ -64,16 +64,15 @@ and print their absolute paths.
 """
 def py_files():
     p = Path(__file__).resolve().parent
+    found = False # Variable for the ".py" files search
 
     for file in p.iterdir():
-        # Create absolute path
-        abs_path = file.resolve()
+        if file.suffix == ".py": # Can also use .match("*.py") or .glob("*.py")
+            print(file.resolve())
+            found = True
 
-        # Find .py files
-        if file.glob("*.py"):
-            print(abs_path)
-        
-    print("No .py more files found in this directory. ")
+    if not found:
+        print("No .py files found in this directory.")
 
 py_files()
             
