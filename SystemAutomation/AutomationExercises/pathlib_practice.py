@@ -79,6 +79,24 @@ py_files()
 """
 5. Rename a.txt to alpha.txt and delete b.txt.
 """
+def renaming_deleting():
+
+    # Establish file paths
+    a = Path("practice_pathlib" / "a.txt")
+    b = Path("practice_pathlib" / "b.txt")
+
+    # Search and rename "a.txt" to "alpha.txt"
+    if a.exists():
+        a.rename("alpha.txt")
+
+    else:
+        print("File does not exist. ")
+
+    # Delete "b.txt"
+    b.unlink()
+    print(" b.txt has been deleted. ")
+
+renaming_deleting()
 
 """
 6. Write a script that searches recursively for all .log files inside your home directory 
