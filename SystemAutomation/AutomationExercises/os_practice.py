@@ -97,6 +97,7 @@ def env_read():
 
 # Run the function
 env_read()
+
 """
 5. Write a script that deletes all .tmp files inside the current directory and its subdirectories.
 """
@@ -114,3 +115,4 @@ def tmp_deleting():
             print(f"Deleted: {full_path}")
 
     return files
+tmp_deleting()

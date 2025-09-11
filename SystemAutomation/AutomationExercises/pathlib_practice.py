@@ -1,6 +1,6 @@
 # pathlib practice exercises.
 
-import pathlib as Path
+from pathlib import Path
 
 # cwd: /Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises/pathlib_practice.py
 
@@ -62,7 +62,21 @@ print(if_exists())
 4. In your current directory, find all .py files using .glob("*.py")
 and print their absolute paths.
 """
+def py_files():
+    p = Path(__file__).resolve().parent
 
+    for file in p.iterdir():
+        # Create absolute path
+        abs_path = file.resolve()
+
+        # Find .py files
+        if file.glob("*.py"):
+            print(abs_path)
+        
+    print("No .py more files found in this directory. ")
+
+py_files()
+            
 """
 5. Rename a.txt to alpha.txt and delete b.txt.
 """
