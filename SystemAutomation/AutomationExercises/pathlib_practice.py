@@ -1,7 +1,6 @@
 # pathlib practice exercises.
 
 from pathlib import Path
-import sys
 
 # cwd: /Users/dieacost/Documents/Dycouzt/Python/Training/Networking/SystemAutomation/AutomationExercises/pathlib_practice.py
 
@@ -108,10 +107,11 @@ def recursive_search():
     home_dir = Path.home()
     found = False
 
-    for file in home_dir.iterdir():
-        if file.match("*.log"):
-            print(f"File name: {file} | File size in bytes: {sys.getsize(file)}")
-        if not found:
-            print("No .log files were found. ")
+    for file in home_dir.rglob("*.log"):
+        print(f"File name: {file} | File size in bytes: {file.stat().st_size}")
+        found = True
+
+    if not found:
+        print("No .log files were found.")
 
 recursive_search()
