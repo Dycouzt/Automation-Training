@@ -37,23 +37,34 @@ print(running_processes())
 2. Create a function that prints all established network connections. 
 Flag any connection not using port 80 or 443.
 """
-def port_security():
+import psutil
 
-    # Active connections list
+def port_security():
     active_connections = []
 
-    # Print all current active connections
     try:
         for conn in psutil.net_connections(kind='inet'):
-            print("Active connection: ", conn)
-            if conn != 80 & conn != 443:
-                active_connections.append({
-                    "Threat Port": {conn}
-                })
+            # Ensure it has a local address
+            if conn.laddr: # laddr = ip:port → 192.168.1.5:22
+                port = conn.laddr.port
+                if port not in (80, 443):
+                    active_connections.append({
+                        "pid": conn.pid,
+                        "local_address": f"{conn.laddr.ip}:{port}",
+                        "remote_address": f"{conn.raddr.ip}:{conn.raddr.port}" if conn.raddr else None, # raddr = ip:port → 192.168.1.10:51123
+
+                        "status": conn.status
+                    })
     except (psutil.AccessDenied, psutil.NoSuchProcess, ValueError):
-        return active_connections
-    
-print(port_security())
+        pass
+
+    return active_connections
+
+
+# Example run
+for threat in port_security():
+    print(threat)
+
     
 """
 3. Write a loop that prints CPU and memory usage every 2 seconds for 20 seconds 
