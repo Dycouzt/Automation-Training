@@ -66,19 +66,13 @@ for threat in port_security():
 3. Write a loop that prints CPU and memory usage every 2 seconds for 20 seconds 
 while running another script in parallel.
 """
-def cpu_loop():
-    running = True
-
-    while True:
-        seconds = 1
-        print(psutil.cpu_percent(interval=None))
-        print(psutil.disk_usage("/"))
-
-        time.sleep(2)
-        seconds + 1
-
-        if seconds >= 20:
-            running = False
+def cpu_loop(duration=20):
+    start_time = time.time()
+    
+    while time.time() - start_time < duration:
+        print(f"CPU usage: {psutil.cpu_percent(interval=1)}%")
+        print(f"Disk usage: {psutil.disk_usage('/').percent}%")
+        time.sleep(1)
 
 cpu_loop()
 
