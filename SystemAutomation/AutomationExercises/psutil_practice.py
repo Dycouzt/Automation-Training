@@ -37,8 +37,6 @@ print(running_processes())
 2. Create a function that prints all established network connections. 
 Flag any connection not using port 80 or 443.
 """
-import psutil
-
 def port_security():
     active_connections = []
 
@@ -60,16 +58,29 @@ def port_security():
 
     return active_connections
 
-
 # Example run
 for threat in port_security():
     print(threat)
-
     
 """
 3. Write a loop that prints CPU and memory usage every 2 seconds for 20 seconds 
 while running another script in parallel.
 """
+def cpu_loop():
+    running = True
+
+    while True:
+        seconds = 1
+        print(psutil.cpu_percent(interval=None))
+        print(psutil.disk_usage("/"))
+
+        time.sleep(2)
+        seconds + 1
+
+        if seconds >= 20:
+            running = False
+
+cpu_loop()
 
 """
 4. Monitor disk write bytes over time and print a warning if write activity exceeds a threshold.
