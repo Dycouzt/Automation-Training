@@ -148,18 +148,24 @@ print(f"Active network connections: {len(active_conn)}")
 6. Write a script that finds the top 5 processes by memory usage 
 and prints their PID, name, and memory consumed.
 """
+import psutil
+
 running_processes = []
 
-process_iter = psutil.process_iter()
+for process in psutil.process_iter(['pid', 'name', 'memory_info', 'status']):
+    try:
+        running_processes.append({
+            "PID": process.pid,
+            "Name": process.name(),
+            "Memory (MB)": process.memory_info().rss / (1024 * 1024),  # convert bytes → MB
+            "Status": process.status()
+        })
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        continue  # skip processes you can't access
 
-for process in process_iter:
-    running_processes.append({
-        "Process ID" : psutil.Process(process).pid
-        "Memory Usage" : psutil.Process(process).memory_info()
-        "Status" : psutil.Process(process).status()
-    })
+# Sort by memory usage in descending order
+top_processes = sorted(running_processes, key=lambda p: p["Memory (MB)"], reverse=True)
 
-sorted = running_processes.sort()
-
-for process in sorted(6):
-    print(process)
+# Print top 5
+for proc in top_processes[:5]:
+    print(proc)
