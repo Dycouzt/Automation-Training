@@ -164,8 +164,8 @@ for process in psutil.process_iter(['pid', 'name', 'memory_info', 'status']):
         continue  # skip processes you can't access
 
 # Sort by memory usage in descending order
-top_processes = sorted(running_processes, key=lambda p: p["Memory (MB)"], reverse=True)
-
+top_processes = sorted(running_processes, key=lambda p: p["Memory (MB)"], reverse=True) # By default Sorted() sorts in an ascending order.
+                                                                                        # Use reverse=True to use descending order.
 # Print top 5
 for proc in top_processes[:5]:
     print(proc)
