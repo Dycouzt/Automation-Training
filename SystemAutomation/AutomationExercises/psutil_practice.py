@@ -119,6 +119,22 @@ except KeyboardInterrupt:
 - Disk usage of /.
 - Number of active network connections.
 """
+print("Outputting System and Process Info... (Ctrl+C to stop)")
+
+# CPU count and utilization.
+cpu_count = psutil.cpu_count()
+cpu_usage = psutil.cpu_percent(interval=1)
+
+# Memory Info.
+mem = psutil.virtual_memory()
+print(f"Total memory: {mem.total / (1024**3):.2f} GB")
+print(f"Available memory: {mem.available / (1024**3):.2f} GB")
+
+# Disk usage for "/".
+disk_usage = psutil.disk_usage("/")
+
+# Active network connections.
+active_conn = psutil.net_connections(kind='inet')
 
 """
 6. Write a script that finds the top 5 processes by memory usage 
