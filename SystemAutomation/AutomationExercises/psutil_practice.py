@@ -79,6 +79,38 @@ cpu_loop()
 """
 4. Monitor disk write bytes over time and print a warning if write activity exceeds a threshold.
 """
+# Threshold in bytes per second (adjust based on your system load)
+THRESHOLD = 50_000_000   # 50 MB/sec
+
+print("Monitoring disk write activity... (Ctrl+C to stop)")
+
+# Get initial I/O counters
+prev_counters = psutil.disk_io_counters()
+prev_write_bytes = prev_counters.write_bytes
+prev_time = time.time()
+
+try:
+    while True:
+        time.sleep(2)  # interval (seconds)
+        current_counters = psutil.disk_io_counters()
+        current_time = time.time()
+
+        # Calculate delta
+        bytes_written = current_counters.write_bytes - prev_write_bytes
+        elapsed_time = current_time - prev_time
+        write_rate = bytes_written / elapsed_time  # bytes per second
+
+        print(f"Write rate: {write_rate:.2f} bytes/sec")
+
+        if write_rate > THRESHOLD:
+            print(f"WARNING: High disk write activity detected! ({write_rate:.2f} B/s)")
+
+        # Update counters
+        prev_write_bytes = current_counters.write_bytes
+        prev_time = current_time
+
+except KeyboardInterrupt:
+    print("\nMonitoring stopped.")
 
 """
 5. Build a script that outputs:
