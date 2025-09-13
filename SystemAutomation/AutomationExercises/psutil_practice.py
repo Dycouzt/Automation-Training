@@ -144,8 +144,22 @@ print(f"Disk Used: {disk_usage.used / (1024**3):.2f} GB")
 print(f"Disk Free: {disk_usage.free / (1024**3):.2f} GB")
 print(f"Active network connections: {len(active_conn)}")
 
-
 """
 6. Write a script that finds the top 5 processes by memory usage 
 and prints their PID, name, and memory consumed.
 """
+running_processes = []
+
+process_iter = psutil.process_iter()
+
+for process in process_iter:
+    running_processes.append({
+        "Process ID" : psutil.Process(process).pid
+        "Memory Usage" : psutil.Process(process).memory_info()
+        "Status" : psutil.Process(process).status()
+    })
+
+sorted = running_processes.sort()
+
+for process in sorted(6):
+    print(process)
