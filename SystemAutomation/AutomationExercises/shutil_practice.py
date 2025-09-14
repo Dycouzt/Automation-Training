@@ -1,9 +1,18 @@
 # shutil practice exercises.
 
-import shutil
+import shutil, os
 
 """ 1. Copy logs.txt to backup/logs_backup.txt using copy2."""
 
+# Ensure backup directory exists
+os.makedirs("backup", exist_ok=True)
+
+# Copy file with metadata preserved
+if os.path.exists("logs.txt"):
+    shutil.copy2("logs.txt", "backup/logs_backup.txt")
+    print("logs.txt successfully copied to backup/logs_backup.txt")
+else:
+    print("logs.txt not found")
 
 """ 2. Copy the directory dataset/ to dataset_backup/, ensuring it works even if the backup directory already exists."""
 
