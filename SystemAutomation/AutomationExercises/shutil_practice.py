@@ -43,26 +43,18 @@ Rename important.txt to important_backup.txt while moving.
 def move_txt():
     downloads = Path("downloads").resolve()
     organized = Path("organized").resolve()
-    important_txt = Path(downloads / "important.txt")
+    important_txt = downloads / "important.txt"
 
-    txt_files = []
-
-    for txt in downloads.iterdir():
-        if txt.is_file():
-            txt_files.append(txt)
-        else:
-            continue
-    
-    for file in txt_files:
-        shutil.move(file, organized)
-        print(f"{file} has been successfully moved to organized/ ")
-
-        if file.match(important_txt):
-            shutil.move(file, "important_backup.txt")
+    for file in downloads.iterdir():
+        if file.is_file() and file.suffix == ".txt":
+            if file == important_txt:
+                shutil.move(file, organized / "important_backup.txt")
+                print(f"{file.name} has been moved and renamed to important_backup.txt")
+            else:
+                shutil.move(file, organized)
+                print(f"{file.name} has been successfully moved to organized/")
 
 move_txt()
-
-
 
 """ 4. Create a zip archive of the dataset/ directory and extract it to restored_dataset/."""
 
