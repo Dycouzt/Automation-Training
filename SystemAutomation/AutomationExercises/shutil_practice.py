@@ -1,6 +1,8 @@
 # shutil practice exercises.
 
-import shutil, os
+import shutil
+import os
+from pathlib import Path
 
 """ 1. Copy logs.txt to backup/logs_backup.txt using copy2."""
 
@@ -15,7 +17,22 @@ else:
     print("logs.txt not found")
 
 """ 2. Copy the directory dataset/ to dataset_backup/, ensuring it works even if the backup directory already exists."""
+def backup(directory):
 
+    print(f"Initializing backup for dataset/ in {directory}")
+
+    # Establishing paths
+    p = Path(directory).resolve().parent
+    dataset_backup = Path("dataset_backup")
+    
+    # Ensure dataset_backup exists and creating otherwise.
+    if p.exists():
+        dataset_backup.mkdir(exist_ok=True)
+        shutil.copy("dataset", "dataset_backup")
+    else:
+        print("dataset/ directory doesn't exist. ")
+
+backup("Dataset")
 
 """ 3. Move all .txt files from downloads/ to organized/. Rename important.txt to important_backup.txt while moving."""
 
