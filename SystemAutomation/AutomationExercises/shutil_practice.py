@@ -3,6 +3,7 @@
 import shutil
 import os
 from pathlib import Path
+from datetime import datetime
 
 """ 1. Copy logs.txt to backup/logs_backup.txt using copy2."""
 
@@ -17,16 +18,16 @@ else:
     print("logs.txt not found")
 
 """ 2. Copy the directory dataset/ to dataset_backup/, ensuring it works even if the backup directory already exists."""
-import shutil
-from pathlib import Path
 
 def backup(directory):
     dataset = Path(directory).resolve()
-    dataset_backup = dataset.parent / "dataset_backup"
+
+    # Create a timestamp string like 2025-09-14_17-30-45
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    dataset_backup = dataset.parent / f"dataset_backup_{timestamp}"
 
     if dataset.exists() and dataset.is_dir():
-        dataset_backup.mkdir(exist_ok=True)
-        shutil.copytree(dataset, dataset_backup, dirs_exist_ok=True)
+        shutil.copytree(dataset, dataset_backup)
         print(f"Backup completed: {dataset} → {dataset_backup}")
     else:
         print(f"Error: {dataset} does not exist or is not a directory.")
