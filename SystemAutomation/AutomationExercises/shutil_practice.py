@@ -17,7 +17,9 @@ if os.path.exists("logs.txt"):
 else:
     print("logs.txt not found")
 
-""" 2. Copy the directory dataset/ to dataset_backup/, ensuring it works even if the backup directory already exists."""
+""" 2. Copy the directory dataset/ to dataset_backup/, 
+ensuring it works even if the backup directory already exists.
+"""
 
 def backup(directory):
     dataset = Path(directory).resolve()
@@ -34,14 +36,41 @@ def backup(directory):
 
 backup("dataset")
 
+""" 
+3. Move all .txt files from downloads/ to organized/. 
+Rename important.txt to important_backup.txt while moving.
+"""
+def move_txt():
+    downloads = Path("downloads").resolve()
+    organized = Path("organized").resolve()
+    important_txt = Path(downloads / "important.txt")
 
-""" 3. Move all .txt files from downloads/ to organized/. Rename important.txt to important_backup.txt while moving."""
+    txt_files = []
+
+    for txt in downloads.iterdir():
+        if txt.is_file():
+            txt_files.append(txt)
+        else:
+            continue
+    
+    for file in txt_files:
+        shutil.move(file, organized)
+        print(f"{file} has been successfully moved to organized/ ")
+
+        if file.match(important_txt):
+            shutil.move(file, "important_backup.txt")
+
+move_txt()
+
 
 
 """ 4. Create a zip archive of the dataset/ directory and extract it to restored_dataset/."""
 
 
-""" 5. Write a script that prints total, used, and free space of /. Add a warning if free space is below 10%."""
+""" 
+5. Write a script that prints total, used, and free space of /. 
+Add a warning if free space is below 10%.
+"""
 
 
 """ 6. Create a temporary directory temp_analysis/ with some files, then delete the directory with rmtree."""
