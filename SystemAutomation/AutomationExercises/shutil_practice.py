@@ -17,22 +17,22 @@ else:
     print("logs.txt not found")
 
 """ 2. Copy the directory dataset/ to dataset_backup/, ensuring it works even if the backup directory already exists."""
+import shutil
+from pathlib import Path
+
 def backup(directory):
+    dataset = Path(directory).resolve()
+    dataset_backup = dataset.parent / "dataset_backup"
 
-    print(f"Initializing backup for dataset/ in {directory}")
-
-    # Establishing paths
-    p = Path(directory).resolve().parent
-    dataset_backup = Path("dataset_backup")
-    
-    # Ensure dataset_backup exists and creating otherwise.
-    if p.exists():
+    if dataset.exists() and dataset.is_dir():
         dataset_backup.mkdir(exist_ok=True)
-        shutil.copy("dataset", "dataset_backup")
+        shutil.copytree(dataset, dataset_backup, dirs_exist_ok=True)
+        print(f"Backup completed: {dataset} → {dataset_backup}")
     else:
-        print("dataset/ directory doesn't exist. ")
+        print(f"Error: {dataset} does not exist or is not a directory.")
 
-backup("Dataset")
+backup("dataset")
+
 
 """ 3. Move all .txt files from downloads/ to organized/. Rename important.txt to important_backup.txt while moving."""
 
