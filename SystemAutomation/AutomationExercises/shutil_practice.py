@@ -107,25 +107,25 @@ if free / total < 0.10:
 
 """ 6. Create a temporary directory temp_analysis/ with some files, then delete the directory with rmtree."""
 base_dir = Path(__file__).resolve().parent
-temp_dir = Path(base_dir / "temp_analysis")
+temp_dir = base_dir / "temp_analysis"
 
-Path.mkdir(temp_dir)
-print("temp_analysis/ directory has been created. ")
+# Create directory
+temp_dir.mkdir(exist_ok=True)
+print("temp_analysis/ directory has been created.")
 
- # create text files with content
+# Create text files inside
 for filename in ["a.txt", "b.txt", "c.txt"]:
-    Path.touch(temp_dir / filename)
+    (temp_dir / filename).touch()
 
-print("some files for temp_analysis/ created")
+print("Some files for temp_analysis/ created.")
 
-for item in base_dir:
-    if temp_dir.exists():
-        try:
-            shutil.rmtree(temp_dir)
-            print("temp_analysis/ has been deleted. ")
-        
-        except shutil.ReadError:
-            print("file does not exist. ")
+# Delete directory
+if temp_dir.exists():
+    try:
+        shutil.rmtree(temp_dir)
+        print("temp_analysis/ has been deleted.")
+    except FileNotFoundError:
+        print("temp_analysis/ not found.")
 else:
     print("temp_analysis/ directory not found.")
 
