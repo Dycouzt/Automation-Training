@@ -58,20 +58,22 @@ move_txt()
 
 """ 4. Create a zip archive of the dataset/ directory and extract it to restored_dataset/."""
 base_dir = Path(__file__).resolve().parent
-dataset_path = Path(base_dir / "dataset")
-restored_path = Path(base_dir / "restored_dataset")
+dataset_path = base_dir / "dataset"
+restored_path = base_dir / "restored_dataset"
 
-for item in Path.iterdir(base_dir):
-    if item.is_dir() and item == dataset_path:
-        shutil.make_archive(item, zip, base_dir)
-        print("dataset has been converted into zip file. ")
+if dataset_path.exists() and dataset_path.is_dir():
+    archive_name = str(base_dir / "dataset")  # no extension, shutil adds it
+    shutil.make_archive(archive_name, "zip", base_dir, "dataset")
+    print("dataset has been converted into dataset.zip")
 
-        shutil.unpack_archive("dataset.zip", restored_path)
+    try:
+        shutil.unpack_archive(f"{archive_name}.zip", restored_path)
         print("dataset.zip has been unpacked in restored_dataset/")
-        
-    else:
-        continue
-
+    except shutil.ReadError:
+        print("Error: Could not unpack archive.")
+else:
+    print("dataset directory not found.")
+    
 """ 
 5. Write a script that prints total, used, and free space of /. 
 Add a warning if free space is below 10%.
