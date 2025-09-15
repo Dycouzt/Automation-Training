@@ -73,12 +73,37 @@ if dataset_path.exists() and dataset_path.is_dir():
         print("Error: Could not unpack archive.")
 else:
     print("dataset directory not found.")
-    
+
 """ 
 5. Write a script that prints total, used, and free space of /. 
 Add a warning if free space is below 10%.
 """
+# Path to check (on Linux/Mac use "/", on Windows use "C:\\")
+path = "/"
 
+# Get disk usage statistics
+usage = shutil.disk_usage(path)
+
+# Extract values (in bytes)
+total = usage.total
+used = usage.used
+free = usage.free
+
+# Convert to GB for readability
+gb = 1024 ** 3
+total_gb = total / gb
+used_gb = used / gb
+free_gb = free / gb
+
+# Print results
+print(f"Disk usage for {path}:")
+print(f"  Total: {total_gb:.2f} GB")
+print(f"  Used:  {used_gb:.2f} GB")
+print(f"  Free:  {free_gb:.2f} GB")
+
+# Warning if less than 10% free
+if free / total < 0.10:
+    print("WARNING: Free space is below 10%!")
 
 """ 6. Create a temporary directory temp_analysis/ with some files, then delete the directory with rmtree."""
 
