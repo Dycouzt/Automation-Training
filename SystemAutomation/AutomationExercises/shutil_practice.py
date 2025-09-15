@@ -57,7 +57,20 @@ def move_txt():
 move_txt()
 
 """ 4. Create a zip archive of the dataset/ directory and extract it to restored_dataset/."""
+base_dir = Path(__file__).resolve().parent
+dataset_path = Path(base_dir / "dataset")
+restored_path = Path(base_dir / "restored_dataset")
 
+for item in Path.iterdir(base_dir):
+    if item.is_dir() and item == dataset_path:
+        shutil.make_archive(item, zip, base_dir)
+        print("dataset has been converted into zip file. ")
+
+        shutil.unpack_archive("dataset.zip", restored_path)
+        print("dataset.zip has been unpacked in restored_dataset/")
+        
+    else:
+        continue
 
 """ 
 5. Write a script that prints total, used, and free space of /. 
