@@ -11,6 +11,13 @@ def whoami():
 Use ps (Linux/Mac) to list active processes. 
 Capture and print only the first 5 lines of output.
 """
+ps = subprocess.run(["ps", "aux"], capture_output=True, text=True)
+
+# Split into lines and take the first 5
+lines = ps.stdout.splitlines()[:5]
+
+for line in lines:
+    print(line)
 
 """
 Write a script that takes a hostname (e.g., google.com) 
