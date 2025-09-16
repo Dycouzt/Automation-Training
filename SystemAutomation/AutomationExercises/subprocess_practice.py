@@ -1,4 +1,11 @@
+# subprocess practice exercises.
+
+import subprocess
+
 """Use subprocess.run() to execute whoami and print the current user."""
+def whoami():
+    p = subprocess.run(["whoami"], capture_output=True, text=True)
+    print(p.stdout.strip())  # strip() removes trailing newline
 
 """
 Use ps (Linux/Mac) to list active processes. 
