@@ -2,13 +2,13 @@
 
 import subprocess
 
-"""Use subprocess.run() to execute whoami and print the current user."""
+""" 1. Use subprocess.run() to execute whoami and print the current user."""
 def whoami():
     p = subprocess.run(["whoami"], capture_output=True, text=True)
     print(p.stdout.strip())  # strip() removes trailing newline
 
 """
-Use ps (Linux/Mac) to list active processes. 
+2. Use ps (Linux/Mac) to list active processes. 
 Capture and print only the first 5 lines of output.
 """
 ps = subprocess.run(["ps", "aux"], capture_output=True, text=True)
@@ -20,7 +20,7 @@ for line in lines:
     print(line)
 
 """
-Write a script that takes a hostname (e.g., google.com) 
+3. Write a script that takes a hostname (e.g., google.com) 
 and pings it 3 times, displaying the result."""
 import platform
 
@@ -39,19 +39,37 @@ def ping(hostname):
     except subprocess.CalledProcessError as e:
         print("Ping failed:")
         print(e.stderr.strip() if e.stderr else "Unknown error")
-        
-"""
-Run netstat -an (Linux/Mac) or netstat -ano (Windows). 
-Capture output, filter only ESTABLISHED connections, and print them.
-"""
 
 """
-Run a command that sleeps for 10 seconds. 
+4. Run netstat -an (Linux/Mac) or netstat -ano (Windows). 
+Capture output, filter only ESTABLISHED connections, and print them.
+"""
+# Determine the correct command based on OS
+if platform.system() == "Windows":
+    cmd = ["netstat", "-ano"]
+else:
+    cmd = ["netstat", "-an"]
+
+# Run the command and capture output
+result = subprocess.run(cmd, capture_output=True, text=True)
+
+# Split output into lines
+lines = result.stdout.splitlines()
+
+# Filter lines containing 'ESTABLISHED'
+established = [line for line in lines if "ESTABLISHED" in line]
+
+# Print filtered connections
+for conn in established:
+    print(conn)
+
+"""
+5. Run a command that sleeps for 10 seconds. 
 Set a timeout of 3 seconds and handle the exception.
 """
 
 """
-Use Popen() to run echo "hello\nworld" and pipe it into grep "hello". 
+6. Use Popen() to run echo "hello\nworld" and pipe it into grep "hello". 
 Capture and print the result.
 """
 
