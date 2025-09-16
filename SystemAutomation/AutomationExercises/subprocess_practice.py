@@ -22,7 +22,24 @@ for line in lines:
 """
 Write a script that takes a hostname (e.g., google.com) 
 and pings it 3 times, displaying the result."""
+import platform
 
+def ping(hostname):
+    # Determine the correct flag for the platform
+    count_flag = "-n" if platform.system().lower() == "windows" else "-c"
+
+    try:
+        result = subprocess.run(
+            ["ping", count_flag, "3", hostname],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        print(result.stdout.strip())
+    except subprocess.CalledProcessError as e:
+        print("Ping failed:")
+        print(e.stderr.strip() if e.stderr else "Unknown error")
+        
 """
 Run netstat -an (Linux/Mac) or netstat -ano (Windows). 
 Capture output, filter only ESTABLISHED connections, and print them.
