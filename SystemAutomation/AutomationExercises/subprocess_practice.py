@@ -97,18 +97,12 @@ print("Return Code:", process.returncode)
 7. Write a script that runs ls -l (Linux/Mac) or dir (Windows) using subprocess, 
 captures the output, and saves it into a file command_output.txt.
 """
-process = subprocess.Popen(
-    ["ls", "-l"],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-)
+# Run 'ls -l' and redirect output directly to a file
+with open("command_output.txt", "w") as f:
+    process = subprocess.Popen(["ls", "-l"], stdout=f, stderr=subprocess.PIPE)
+    _, stderr = process.communicate()
 
-stdout, stderr = process.communicate()
-with open("output.txt", "w") as f:
-    process = subprocess.Popen(
-        ["ls", "-l"],
-        stdout=f
-    )
-    
-    stdout, stderr = process.communicate()
-    print("output saved to output.txt")
+if process.returncode == 0:
+    print("Output saved to command_output.txt")
+else:
+    print("Error:", stderr.decode())
