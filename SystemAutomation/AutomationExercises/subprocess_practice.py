@@ -1,6 +1,7 @@
 # subprocess practice exercises.
 
 import subprocess
+import time
 
 """ 1. Use subprocess.run() to execute whoami and print the current user."""
 def whoami():
@@ -67,6 +68,14 @@ for conn in established:
 5. Run a command that sleeps for 10 seconds. 
 Set a timeout of 3 seconds and handle the exception.
 """
+
+try:
+    subprocess.run(["echo", "Hello World!"], capture_output=True, text=True, timeout=3)
+    time.sleep(10)
+
+except TimeoutError:
+    print("Process timeout! ")
+
 
 """
 6. Use Popen() to run echo "hello\nworld" and pipe it into grep "hello". 

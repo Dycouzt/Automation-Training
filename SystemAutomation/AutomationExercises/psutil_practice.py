@@ -1,6 +1,7 @@
 # psutil practice exercises.
 
-import psutil, time
+import psutil
+import time
 
 """
 1. Write a script that lists all running processes and prints only those using more than 10% CPU.
@@ -148,8 +149,6 @@ print(f"Active network connections: {len(active_conn)}")
 6. Write a script that finds the top 5 processes by memory usage 
 and prints their PID, name, and memory consumed.
 """
-import psutil
-
 running_processes = []
 
 for process in psutil.process_iter(['pid', 'name', 'memory_info', 'status']):
