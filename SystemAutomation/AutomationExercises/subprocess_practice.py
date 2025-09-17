@@ -68,19 +68,29 @@ for conn in established:
 5. Run a command that sleeps for 10 seconds. 
 Set a timeout of 3 seconds and handle the exception.
 """
-
 try:
-    subprocess.run(["echo", "Hello World!"], capture_output=True, text=True, timeout=3)
-    time.sleep(10)
-
-except TimeoutError:
-    print("Process timeout! ")
-
+    subprocess.run(
+        ["sleep", "10"],   # Command that actually sleeps 10s
+        timeout=3       
+    )
+except subprocess.TimeoutExpired:
+    print("Process timeout!")
 
 """
 6. Use Popen() to run echo "hello\nworld" and pipe it into grep "hello". 
 Capture and print the result.
 """
+process = subprocess.Popen(
+    "echo", "hello\nworld", "|", "grep", "hello",
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    shell=True
+)
+
+stdout, stderr = subprocess.communicate()
+print("STDOUT: ", stdout.decode().strip())
+print("STDERR: ", stderr.decode().strip())
+print("Return Code: ", process.returncode)
 
 """
 7. Write a script that runs ls -l (Linux/Mac) or dir (Windows) using subprocess, 
