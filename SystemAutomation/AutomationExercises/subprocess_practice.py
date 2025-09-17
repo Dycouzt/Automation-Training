@@ -81,16 +81,17 @@ except subprocess.TimeoutExpired:
 Capture and print the result.
 """
 process = subprocess.Popen(
-    "echo", "hello\nworld", "|", "grep", "hello",
+    "printf 'hello\nworld' | grep 'hello'",
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE,
     shell=True
 )
 
-stdout, stderr = subprocess.communicate()
-print("STDOUT: ", stdout.decode().strip())
-print("STDERR: ", stderr.decode().strip())
-print("Return Code: ", process.returncode)
+stdout, stderr = process.communicate()
+
+print("STDOUT:", stdout.decode().strip())
+print("STDERR:", stderr.decode().strip())
+print("Return Code:", process.returncode)
 
 """
 7. Write a script that runs ls -l (Linux/Mac) or dir (Windows) using subprocess, 
