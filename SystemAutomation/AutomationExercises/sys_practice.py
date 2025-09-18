@@ -28,12 +28,22 @@ if not found:
 2. Cross-Platform Script: Use sys.platform to print OS-specific commands 
 (e.g., ls for Linux, dir for Windows).
 """
+def cross_platform():
+    window_cmds = ["dir", "where <program>", "whoami", "cd", "type nul > filename.txt"]
+    linux_cmds = ["ls", "which", "whoami", "cd", "touch"]
 
+    if sys.platform() == "win32":
+        for cmd in window_cmds:
+            print(cmd)
+    else:
+        for cmd in linux_cmds:
+            print(cmd)
+        
 """ 3. Version Checker: Create a script that exits with an error if Python version < 3.10."""
 
-"""Custom Logger: Redirect sys.stdout to a file and log messages there."""
+""" 4. Custom Logger: Redirect sys.stdout to a file and log messages there."""
 
 """
-4. Memory Tracker: Write a script that calculates 
+5. Memory Tracker: Write a script that calculates 
 and prints the memory size of a list of integers from 1-1000.
 """
