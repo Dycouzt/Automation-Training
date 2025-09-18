@@ -7,17 +7,22 @@ from pathlib import Path
 1. Argument Parser: Write a script using sys.argv that accepts a filename 
 and prints whether it exists. Exit with 0 if found, 1 otherwise.
 """
-arg = str(sys.argv([1]))
+if len(sys.argv) < 2:
+    print("Usage: python script.py <filename>")
+    sys.exit(1)
+
+arg = sys.argv[1]
 home_dir = Path.home().resolve()
 found = False
 
-for item in home_dir.rglob("*{arg}"):
-    if item.is_file and item == arg:
-        print(f"{arg} STATUS: EXISTS. ")
+for item in home_dir.rglob("*"):
+    if item.is_file() and item.name == arg:
+        print(f"{arg} STATUS: EXISTS at {item}")
         found = True
+        break  # Stop after first match
 
-if found != True:
-    print(f"{arg} STATUS: NOT FOUND. ")
+if not found:
+    print(f"{arg} STATUS: NOT FOUND.")
 
 """
 2. Cross-Platform Script: Use sys.platform to print OS-specific commands 
