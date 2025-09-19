@@ -30,16 +30,19 @@ if not found:
 """
 def cross_platform():
     window_cmds = ["dir", "where <program>", "whoami", "cd", "type nul > filename.txt"]
-    linux_cmds = ["ls", "which", "whoami", "cd", "touch"]
+    linux_cmds = ["ls", "which <program>", "whoami", "cd", "touch filename.txt"]
 
-    if sys.platform() == "win32":
+    if sys.platform == "win32":
         for cmd in window_cmds:
             print(cmd)
-    else:
+    elif sys.platform.startswith("linux"):
         for cmd in linux_cmds:
             print(cmd)
+    else:
+        print("Other platform....")
         
 """ 3. Version Checker: Create a script that exits with an error if Python version < 3.10."""
+
 
 """ 4. Custom Logger: Redirect sys.stdout to a file and log messages there."""
 
