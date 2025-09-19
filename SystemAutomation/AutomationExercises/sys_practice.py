@@ -74,3 +74,16 @@ custom_logger()
 5. Memory Tracker: Write a script that calculates 
 and prints the memory size of a list of integers from 1-1000.
 """
+def memory_tracker():
+    numbers = list(range(1, 1001))
+
+    # Memory of the list object itself (not including elements)
+    list_size = sys.getsizeof(numbers)
+
+    # Total memory including elements
+    total_size = list_size + sum(sys.getsizeof(num) for num in numbers)
+
+    print(f"Memory size of the list object alone: {list_size} bytes")
+    print(f"Total memory size (list + elements): {total_size} bytes")
+
+memory_tracker()
