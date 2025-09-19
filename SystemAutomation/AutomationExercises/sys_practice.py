@@ -52,6 +52,23 @@ def version_checker():
         print("You have Python 3.10 or newer!")
 
 """ 4. Custom Logger: Redirect sys.stdout to a file and log messages there."""
+def custom_logger():
+    # Open a log file in write mode
+    log_file = open("log.txt", "w")
+
+    # Redirect standard output to the file
+    sys.stdout = log_file
+
+    # Anything printed now goes into log.txt instead of the console
+    print("Starting the logging process...")
+    print("This message will be written to log.txt")
+    print("Logging finished.")
+
+    # Important: close the file when done
+    log_file.close()
+
+# Run function
+custom_logger()
 
 """
 5. Memory Tracker: Write a script that calculates 
