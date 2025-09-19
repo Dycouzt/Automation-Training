@@ -43,12 +43,13 @@ def cross_platform():
         
 """ 3. Version Checker: Create a script that exits with an error if Python version < 3.10."""
 def version_checker():
-    print("Checking python version...")
+    print("Checking Python version...")
 
-    if sys.version < "3.10":
-        print("your python version is outdated! ")
+    if sys.version_info < (3, 10):
+        print("Your Python version is outdated!")
+        sys.exit(1)  # Exit with error status
     else:
-        print("You have the latest python version! ")
+        print("You have Python 3.10 or newer!")
 
 """ 4. Custom Logger: Redirect sys.stdout to a file and log messages there."""
 
