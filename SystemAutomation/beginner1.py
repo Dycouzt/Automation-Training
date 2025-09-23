@@ -15,14 +15,16 @@ def system_info():
     python_v = sys.version()
 """
 def system_info():
-    version_info = sys.version.split()
-    info_splitted = version_info[0]
-    operating_sys = platform.version
+    python_version = platform.python_version()
+    os_name = platform.system()
+    os_version = platform.release()
     cwd = os.getcwd()
 
-    print(f"OS Name: ", operating_sys)
-    print(f"Python Version: {info_splitted[0]}")
-    print(f"Current Working Directory: ", cwd)
+    print(f"OS Name: {os_name} {os_version}")
+    print(f"Python Version: {python_version}")
+    print(f"Current Working Directory: {cwd}")
+
+system_info()
 
 """
 2. Disk Usage Monitor (shutil, os)
