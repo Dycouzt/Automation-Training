@@ -1,7 +1,6 @@
 # subprocess practice exercises.
 
 import subprocess
-import time
 
 """ 1. Use subprocess.run() to execute whoami and print the current user."""
 def whoami():
