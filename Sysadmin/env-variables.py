@@ -6,34 +6,28 @@
     From your shell, set APP_MODE=development.
     Write a Python script that reads APP_MODE and prints a different message for development, staging, and production.
 """
-
 import os
-import shutil
 
 def get_home_env_var():
     env = os.environ.get('HOME')
-    if not env:
-        print("Environment Variable not found! ")
-    return env
-
-get_home_env_var()
+    if env:
+        print(f"HOME: {env}")
+    else:
+        print("HOME environment variable not found!")
 
 def read_shell_var():
     app_mode = os.environ.get('APP_MODE')
-    not_found = "Variable NOT FOUND!"
-    dev = "Current app mode: DEVELOPMENT!"
-    stag = "Current app mode: STAGING!"
-    prod = "Current app mode: PRODUCTION!"
-
     if not app_mode:
-        return not_found
-    if app_mode == 'development':
-        return dev
-    if app_mode == 'staging':
-        return stag
-    if app_mode == 'production':
-        return prod
-    
+        print("APP_MODE not found")
+    elif app_mode == 'development':
+        print("Current app mode: DEVELOPMENT")
+    elif app_mode == 'staging':
+        print("Current app mode: STAGING")
+    elif app_mode == 'production':
+        print("Current app mode: PRODUCTION")
+    else:
+        print(f"APP_MODE has unknown value: {app_mode}")
+
+get_home_env_var()
 read_shell_var()
-        
 
