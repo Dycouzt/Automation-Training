@@ -8,35 +8,29 @@ Alert if usage exceeds a threshold (print message or write to file).
 import psutil, time
 import sys
 
-CPU_THRESHOLD = 75
-MEM_THRESHOLD = 70
 
-threshold_alert = []
+def running_processes():
+    # List all running processes
+    active_processes = [f"PID: {p.pid}, Name: {p.name}" for p in psutil.process_iter()]
+    print(active_processes)
+running_processes()
 
-# Initialize CPU measurement
-cpu_usage = psutil.cpu_percent(interval=1)
-mem_usage = psutil.virtual_memory()
-
-ten_percent = []
+def threshold_check():
+    CPU_THRESHOLD = 75
+    MEM_THRESHOLD = 70
 
     # Initialize CPU measurement
-for process in psutil.process_iter():
-    try:
-        process.cpu_percent(interval=None)
-    except (psutil.NoSuchProcess, psutil.AccessDenied, PermissionError):
-        continue
+    cpu_usage = psutil.cpu_percent(interval=1)
+    mem_usage = psutil.virtual_memory()
 
-time.sleep(1)
+    print(f"Overall CPU Usage: {cpu_usage}")
+    print(f"Overall Memory Usage: {mem_usage}")
 
-for process in psutil.process_iter(['pid', 'name']):
-    try:
-        cpu_usage = process.cpu_percent(interval=None)
-        if cpu_usage > 10:
-            ten_percent.append({
-                "pid": process.pid,
-                "name": process.name(),
-                "cpu_percent": cpu_usage
-            })
-    except (psutil.NoSuchProcess, psutil.AccessDenied, PermissionError):
-        continue
-    
+    if cpu_usage >= CPU_THRESHOLD:
+        print("WARNING! CPU Usage has surpassed the system threshold!")
+    elif mem_usage >= MEM_THRESHOLD:
+        print("WARNING! Memory usage has surpasses the system threshold!")
+    else:
+        print("CPU and Memory usage are within the system healthy baseline! ")
+
+threshold_check()
