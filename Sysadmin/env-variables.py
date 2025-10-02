@@ -1,3 +1,6 @@
+import subprocess
+import os
+
 """
 1. Read an environment variable
     Create a script that prints the value of HOME.
@@ -6,8 +9,8 @@
     From your shell, set APP_MODE=development.
     Write a Python script that reads APP_MODE and prints a different message for development, staging, and production.
 """
-import os
-import subprocess
+
+
 
 def get_home_env_var():
     env = os.environ.get('HOME')
@@ -68,4 +71,28 @@ def temp_update_var():
 db_fallback()
 conn_str()
 temp_update_var()
+
+"""
+6. Secure variable access
+    Store SECRET_KEY in an environment variable.
+    Write a script that loads it, but raises an exception if it’s missing or empty.
+7. Dotenv integration
+    Create a .env file with multiple variables.
+    Use python-dotenv to load them into the environment.
+    Verify your script reads them as if they were exported normally.
+8. Variable scoping test
+    Write a Python script that sets a variable with os.environ.
+    Spawn two subprocesses: one using inherit_env=True, another with env={}.
+    Show the difference in output.
+"""
+
+def secret_key():
+    try:
+        secret = os.environ.get('SECRET_KEY')
+        print(f"SECRET_KEY: {secret}")
+
+    except Exception as e:
+        print("Variable not found.")
+
+def dotenv():
 
