@@ -28,8 +28,8 @@ def log_parsing(log_files):
     return error_counts
 
 def save_to_csv(error_counts, output_file="errors_report.csv"):
-    with open(output_file, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
+    with open(output_file, "w", newline="") as csv_file:
+        writer = csv.writer(csv_file)
         writer.writerow(["Date", "Error_Count"])
         for date, count in sorted(error_counts.items()):
             writer.writerow([date, count])
