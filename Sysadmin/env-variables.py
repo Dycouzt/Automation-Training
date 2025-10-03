@@ -1,5 +1,6 @@
 import subprocess
 import os
+from dotenv import load_dotenv
 
 """
 1. Read an environment variable
@@ -95,8 +96,6 @@ def secret_key():
         print("Variable not found.")
 
 def dotenv():
-    # Make sure to install python-dotenv: pip install python-dotenv
-    from dotenv import load_dotenv
     load_dotenv()
 
     db_host = os.environ.get('DB_HOST')
@@ -109,17 +108,16 @@ def dotenv():
 
 
 def var_scoping():
-    os.environ['MY_VAR'] = 'my_value'
+    # Set variable in current process environment
+    os.environ["MY_VAR"] = "visible_in_child"
 
-    print("Spawning subprocess with inherited environment:")
-    # This subprocess will have access to MY_VAR
-    result = subprocess.run('echo "MY_VAR is $MY_VAR"', shell=True, capture_output=True, text=True)
-    print(result.stdout.strip())
+    # Subprocess inherits environment by default
+    print("---- Subprocess with inherited environment ----")
+    subprocess.run(["python3", "-c", "import os; print(os.getenv('MY_VAR'))"])
 
-    print("\nSpawning subprocess with empty environment:")
-    # This subprocess will not have access to MY_VAR
-    result = subprocess.run('echo "MY_VAR is $MY_VAR"', shell=True, env={}, capture_output=True, text=True)
-    print(result.stdout.strip())
+    # Subprocess with empty environment (variable not passed down)
+    print("---- Subprocess with cleared environment ----")
+    subprocess.run(["python3", "-c", "import os; print(os.getenv('MY_VAR'))"], env={})
 
 secret_key()
 dotenv()
