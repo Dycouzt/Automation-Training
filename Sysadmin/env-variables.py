@@ -95,4 +95,32 @@ def secret_key():
         print("Variable not found.")
 
 def dotenv():
+    # Make sure to install python-dotenv: pip install python-dotenv
+    from dotenv import load_dotenv
+    load_dotenv()
 
+    db_host = os.environ.get('DB_HOST')
+    db_user = os.environ.get('DB_USER')
+    db_pass = os.environ.get('DB_PASS')
+
+    print(f"DB_HOST: {db_host}")
+    print(f"DB_USER: {db_user}")
+    print(f"DB_PASS: {db_pass}")
+
+
+def var_scoping():
+    os.environ['MY_VAR'] = 'my_value'
+
+    print("Spawning subprocess with inherited environment:")
+    # This subprocess will have access to MY_VAR
+    result = subprocess.run('echo "MY_VAR is $MY_VAR"', shell=True, capture_output=True, text=True)
+    print(result.stdout.strip())
+
+    print("\nSpawning subprocess with empty environment:")
+    # This subprocess will not have access to MY_VAR
+    result = subprocess.run('echo "MY_VAR is $MY_VAR"', shell=True, env={}, capture_output=True, text=True)
+    print(result.stdout.strip())
+
+secret_key()
+dotenv()
+var_scoping()
