@@ -5,7 +5,7 @@ Automate system updates (simulate with file operations if not on root).
 CPU/memory monitoring script that logs usage every X seconds.
 """
 from datetime import datetime
-import shutil, psutil, subprocess
+import shutil, psutil
 from pathlib import Path
 import time
 
