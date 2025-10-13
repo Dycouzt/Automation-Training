@@ -17,8 +17,13 @@ def api_fetch(api_url):
         response.raise_for_status()
         data = response.json()
         return data
+
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
+        if data:
+            print("Repository:", data["name"])
+            print("Stars:", data["stargazers_count"])
+            print("Forks:", data["forks_count"])
         return None
 
 
