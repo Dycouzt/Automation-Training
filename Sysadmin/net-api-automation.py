@@ -9,6 +9,18 @@ import subprocess
 from pathlib import Path
 import platform
 import re
+import requests
+
+def api_fetch(api_url):
+    try:
+        response = requests.get(api_url, timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return None
+
 
 def get_ip_list():
     ip_pattern = re.compile(
@@ -46,7 +58,10 @@ def ping_servers(servers):
             print(e.stderr.strip() if e.stderr else "Unknown error")
 
 
+
 if __name__ == "__main__":
+    api_url = "https://api.github.com/repos/python/cpython"
+    api_fetch(api_url)
     ip_list = get_ip_list()
     print(f"Starting ICMP call to: {ip_list}")
     ping_servers(ip_list)
