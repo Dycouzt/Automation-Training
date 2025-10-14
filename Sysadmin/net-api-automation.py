@@ -9,6 +9,7 @@ import subprocess
 import platform
 import re
 import requests
+import ipaddress
 
 def get_ip_list():
     ip_pattern = re.compile(
@@ -69,14 +70,42 @@ def monitor_endpoints(endpoints_list):
     
     for status in status_codes:
         print(f"Status Code: {status}")
+
+def validate_ip(address):
+    try:
+        ip = ipaddress.ip_address(address)
+        if isinstance(ip, ipaddress.IPv4Address):
+            return "IPv4"
+        elif isinstance(ip, ipaddress.IPv6Address):
+            return "IPv6"
+    except ValueError:
+        return None
+
+def get_name(website):
+    match = re.compile(r"(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}")
     
-    
+    if website.match(match):
+        try:
+            dns_lookup = subprocess.run(f"nslookup {website}", capture_output=True, text=True, check=True)
+            lines = dns_lookup.stdout.strip().splitlines()
+            print(lines[0-1])
+
+        except subprocess.CalledProcessError as e:
+            print("Lookup failed:")
+            print(e.stderr.strip() if e.stderr else "Unknown error")
+
+    else:
+        print("Invalid service / website name.")
+            
+
 if __name__ == "__main__":
     api_url_2 = "https://jsonplaceholder.typicode.com" # One can set a url as a variable in order to use it multiple times.
-    endpoint = "/posts/1" # The specific last part of a url is called endpoint
+    endpoints_list = ["/posts/1", "/posts/2", "/posts/3"] # The specific last part of a url is called endpoint
     api_url_1 = "https://api.github.com/repos/python/cpython"
     api_fetch(api_url_1)
     ip_list = get_ip_list()
     print(f"Starting ICMP call to: {ip_list}")
+    address = "192.168.64.100"
+    website = "netflix.com"
     ping_servers(ip_list)
 
