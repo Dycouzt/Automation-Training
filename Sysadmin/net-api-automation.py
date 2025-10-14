@@ -6,25 +6,9 @@ Automate DNS lookups or IP validations.
 """
 
 import subprocess
-from pathlib import Path
 import platform
 import re
 import requests
-
-def api_fetch(api_url):
-    try:
-        response = requests.get(api_url, timeout=5)
-        response.raise_for_status()
-        data = response.json()
-        return data
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        if data:
-            print("Repository:", data["name"])
-            print("Stars:", data["stargazers_count"])
-            print("Forks:", data["forks_count"])
-        return None
 
 def get_ip_list():
     ip_pattern = re.compile(
@@ -61,11 +45,37 @@ def ping_servers(servers):
             print("Ping failed:")
             print(e.stderr.strip() if e.stderr else "Unknown error")
 
+def api_fetch(api_url):
+    try:
+        response = requests.get(api_url, timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        return data
 
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        if data:
+            print("Repository:", data["name"])
+            print("Stars:", data["stargazers_count"])
+            print("Forks:", data["forks_count"])
+        return None
 
+def monitor_endpoints(endpoints_list):
+    status_codes = []
+    for endpoint in endpoints_list:
+        response = requests.get(endpoint)
+        status_codes.append(response.status_code())
+        return status_codes
+    
+    for status in status_codes:
+        print(f"Status Code: {status}")
+    
+    
 if __name__ == "__main__":
-    api_url = "https://api.github.com/repos/python/cpython"
-    api_fetch(api_url)
+    api_url_2 = "https://jsonplaceholder.typicode.com" # One can set a url as a variable in order to use it multiple times.
+    endpoint = "/posts/1" # The specific last part of a url is called endpoint
+    api_url_1 = "https://api.github.com/repos/python/cpython"
+    api_fetch(api_url_1)
     ip_list = get_ip_list()
     print(f"Starting ICMP call to: {ip_list}")
     ping_servers(ip_list)
