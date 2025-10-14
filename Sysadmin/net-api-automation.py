@@ -7,33 +7,29 @@ Automate DNS lookups or IP validations.
 
 import subprocess
 import platform
-import re
 import requests
 import ipaddress
+import socket
 
 def get_ip_list():
-    ip_pattern = re.compile(
-        r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
-    )  # simple IPv4 validation
-
     ips = []
-
     print("Enter IPs to ping (press Enter without input to finish):")
     while True:
         ip = input("> ").strip()
         if not ip:
             break
-        if ip_pattern.match(ip):
+        try:
+            ipaddress.ip_address(ip)
             ips.append(ip)
-        else:
+        except ValueError:
             print("Invalid IP format. Try again.")
     return ips
 
-def ping_servers(servers):
-    print(f"Starting ICMP call to {servers}")
-    count_flag = "-n" if platform.system().lower() == "windows" else "-c"
 
-    for server in servers:     
+def ping_servers(servers):
+    count_flag = "-n" if platform.system().lower() == "windows" else "-c"
+    for server in servers:
+        print(f"Pinging {server}...")
         try:
             result = subprocess.run(
                 ["ping", count_flag, "3", server],
@@ -41,71 +37,67 @@ def ping_servers(servers):
                 text=True,
                 check=True
             )
-            print(result.stdout.strip())
-        except subprocess.CalledProcessError as e:
-            print("Ping failed:")
-            print(e.stderr.strip() if e.stderr else "Unknown error")
+            print("Ping success.")
+        except subprocess.CalledProcessError:
+            print(f"Ping failed for {server}")
+
 
 def api_fetch(api_url):
     try:
         response = requests.get(api_url, timeout=5)
         response.raise_for_status()
         data = response.json()
+        print("API data fetched successfully.")
         return data
-
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
-        if data:
-            print("Repository:", data["name"])
-            print("Stars:", data["stargazers_count"])
-            print("Forks:", data["forks_count"])
         return None
 
-def monitor_endpoints(endpoints_list):
-    status_codes = []
-    for endpoint in endpoints_list:
-        response = requests.get(endpoint)
-        status_codes.append(response.status_code())
-        return status_codes
-    
-    for status in status_codes:
-        print(f"Status Code: {status}")
+
+def monitor_endpoints(base_url, endpoints):
+    for endpoint in endpoints:
+        url = f"{base_url}{endpoint}"
+        try:
+            r = requests.get(url, timeout=5)
+            print(f"{url} -> Status: {r.status_code}")
+        except requests.RequestException as e:
+            print(f"Failed to reach {url}: {e}")
+
 
 def validate_ip(address):
     try:
         ip = ipaddress.ip_address(address)
-        if isinstance(ip, ipaddress.IPv4Address):
-            return "IPv4"
-        elif isinstance(ip, ipaddress.IPv6Address):
-            return "IPv6"
+        return "IPv4" if isinstance(ip, ipaddress.IPv4Address) else "IPv6"
     except ValueError:
         return None
 
-def get_name(website):
-    match = re.compile(r"(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}")
-    
-    if website.match(match):
-        try:
-            dns_lookup = subprocess.run(f"nslookup {website}", capture_output=True, text=True, check=True)
-            lines = dns_lookup.stdout.strip().splitlines()
-            print(lines[0-1])
 
-        except subprocess.CalledProcessError as e:
-            print("Lookup failed:")
-            print(e.stderr.strip() if e.stderr else "Unknown error")
+def dns_lookup(domain):
+    try:
+        ip = socket.gethostbyname(domain)
+        print(f"{domain} resolves to {ip}")
+    except socket.gaierror:
+        print(f"DNS lookup failed for {domain}")
 
-    else:
-        print("Invalid service / website name.")
-            
 
 if __name__ == "__main__":
-    api_url_2 = "https://jsonplaceholder.typicode.com" # One can set a url as a variable in order to use it multiple times.
-    endpoints_list = ["/posts/1", "/posts/2", "/posts/3"] # The specific last part of a url is called endpoint
-    api_url_1 = "https://api.github.com/repos/python/cpython"
-    api_fetch(api_url_1)
+    # Example usage
+    github_repo = "https://api.github.com/repos/python/cpython"
+    json_data = api_fetch(github_repo)
+    if json_data:
+        print(f"Repository: {json_data['name']}")
+        print(f"Stars: {json_data['stargazers_count']}")
+        print(f"Forks: {json_data['forks_count']}")
+
+    monitor_endpoints("https://jsonplaceholder.typicode.com", ["/posts/1", "/posts/2", "/posts/3"])
+
     ip_list = get_ip_list()
-    print(f"Starting ICMP call to: {ip_list}")
-    address = "192.168.64.100"
+    if ip_list:
+        ping_servers(ip_list)
+
+    address = "192.168.64.10"
     website = "netflix.com"
-    ping_servers(ip_list)
+    print(f"{address} is {validate_ip(address)}")
+    dns_lookup(website)
+
 
