@@ -20,29 +20,29 @@ Level 1 - Basics
 """
 
 def get_name_parse():
-    parser = argparse.ArgumentParser(description="Username")
-    args = parser.add_argument("-h", "--help", help="Enter username.")
-
-    print(f"Greetings, {args}")
+    parser = argparse.ArgumentParser(description="Username input")
+    parser.add_argument("username", help="Enter username")  # positional argument
+    args = parser.parse_args()  # parse command-line arguments
+    print(f"Greetings, {args.username}")
 
 def flag_practice():
-    parser = argparse.ArgumentParser(description="verbose")
-    args = parser.add_argument("-v", "--verbose", help="Turn Verbose mode on")
-    
-    if args:
-        print(f"Verbose mode on")
+    parser = argparse.ArgumentParser(description="Verbose flag example")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose mode")
+    args = parser.parse_args()
+
+    if args.verbose:
+        print("Verbose mode ON")
+    else:
+        print("Verbose mode OFF")
 
 def conversion_type():
-    parser = argparse.ArgumentParser(description="Provide two arguments to add them")
-    args = parser.add_argument("--x", "--y", nargs=2, type=int, help="Provide only two numbers")
+    parser = argparse.ArgumentParser(description="Add two numbers")
+    parser.add_argument("--x", type=int, required=True, help="First number")
+    parser.add_argument("--y", type=int, required=True, help="Second number")
+    args = parser.parse_args()
 
-    if args:
-        x = args[0] + args[1]
-        return x
-
-get_name_parse()
-flag_practice()
-print(conversion_type())
-
+    result = args.x + args.y
+    print(f"Sum: {result}")
+    return result
 
 
