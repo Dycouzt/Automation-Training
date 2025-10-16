@@ -45,4 +45,64 @@ def conversion_type():
     print(f"Sum: {result}")
     return result
 
+"""
+Level 2 - Input Control
 
+1. Choices Validation:
+- Script takes an argument action with allowed values start, stop, restart.
+- Print a message based on the chosen action.
+
+2. Default Value:
+- Add an optional argument --env with default "dev".
+- Output: Environment: dev or Environment: prod depending on input.
+
+3. Multiple Values:
+- Create a script that takes multiple filenames as input (nargs='+') and prints them line by line.
+"""
+
+def valdiate_choices():
+    options = ["start", "stop", "restart"]
+
+    parser = argparse.ArgumentParser(description="Choose action to perform")
+    parser.add_argument("Action", type=str, required=True, help=f"Choose from {options}")
+    args = parser.parse_args()
+
+    if args in options:
+        if args == options[0]:
+            print("Starting...")
+        if args == options[1]:
+            print("Stopping...")
+        else:
+            print("Restarting...")
+    else:
+        raise argparse.ArgumentError
+
+def set_environemnt():
+    options = ["dev", "stag", "prod"]
+
+    parser = argparse.ArgumentParser(description="Set Environment Stage")
+    parser.add_argument("--env", default="dev", help="Set / Show current environment stage.")
+    args = parser.parse_args()
+
+    if args in options:
+        if args == options[0]:
+            print(f"Environment: {options[0]}")
+        if args == options[1]:
+            print(f"Environment: {options[1]}")
+        else:
+            print(f"Environment: {options[2]}")
+    else:
+        raise argparse.ArgumentError
+
+def print_filenames():
+    parser = argparse.ArgumentParser(description="Provide one or more filenames")
+    parser.add_argument("filename", nargs="+", type=str, help="Must be a string and the file must exist")
+    args = parser.parse_args()
+
+    for file in args:
+        print(f"{file}")
+
+valdiate_choices()
+set_environemnt()
+print_filenames()
+        
