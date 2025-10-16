@@ -60,49 +60,28 @@ Level 2 - Input Control
 - Create a script that takes multiple filenames as input (nargs='+') and prints them line by line.
 """
 
-def valdiate_choices():
-    options = ["start", "stop", "restart"]
+def get_name_parse():
+    parser = argparse.ArgumentParser(description="Username input")
+    parser.add_argument("username", help="Enter username")  # positional argument
+    args = parser.parse_args()  # parse command-line arguments
+    print(f"Greetings, {args.username}")
 
-    parser = argparse.ArgumentParser(description="Choose action to perform")
-    parser.add_argument("Action", type=str, required=True, help=f"Choose from {options}")
+def flag_practice():
+    parser = argparse.ArgumentParser(description="Verbose flag example")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose mode")
     args = parser.parse_args()
 
-    if args in options:
-        if args == options[0]:
-            print("Starting...")
-        if args == options[1]:
-            print("Stopping...")
-        else:
-            print("Restarting...")
+    if args.verbose:
+        print("Verbose mode ON")
     else:
-        raise argparse.ArgumentError
+        print("Verbose mode OFF")
 
-def set_environemnt():
-    options = ["dev", "stag", "prod"]
-
-    parser = argparse.ArgumentParser(description="Set Environment Stage")
-    parser.add_argument("--env", default="dev", help="Set / Show current environment stage.")
+def conversion_type():
+    parser = argparse.ArgumentParser(description="Add two numbers")
+    parser.add_argument("--x", type=int, required=True, help="First number")
+    parser.add_argument("--y", type=int, required=True, help="Second number")
     args = parser.parse_args()
 
-    if args in options:
-        if args == options[0]:
-            print(f"Environment: {options[0]}")
-        if args == options[1]:
-            print(f"Environment: {options[1]}")
-        else:
-            print(f"Environment: {options[2]}")
-    else:
-        raise argparse.ArgumentError
-
-def print_filenames():
-    parser = argparse.ArgumentParser(description="Provide one or more filenames")
-    parser.add_argument("filename", nargs="+", type=str, help="Must be a string and the file must exist")
-    args = parser.parse_args()
-
-    for file in args:
-        print(f"{file}")
-
-valdiate_choices()
-set_environemnt()
-print_filenames()
-        
+    result = args.x + args.y
+    print(f"Sum: {result}")
+    return result
