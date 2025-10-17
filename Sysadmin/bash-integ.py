@@ -9,83 +9,65 @@ import subprocess
 import argparse
 import platform
 
-# Run shell commands from python using subprocess module.
 def run_commands():
-    linux_cmds = ["ls", "cd", "pwd", "who"] # command options if platform == linux
-    window_cmds = ["dir", "where <program>", "whoami", "cd"] # command options if platform == windows
+    linux_cmds = ["ls", "pwd", "who"]
+    windows_cmds = ["dir", "where", "whoami"]
 
-    # create argument parser to parse user input
-    parser = argparse.ArgumentParser(description="Provide command to run.")
+    parser = argparse.ArgumentParser(description="Run a shell command.")
+    system = platform.system().lower()
 
-    if platform.system().lower() == "windows":
-        parser.add_argument("command", nargs="+", choices=window_cmds, type=str, help="Provide one or more arguments, must be strings. ")
+    if system == "windows":
+        parser.add_argument("command", choices=windows_cmds, help="Command to run on Windows")
     else:
-        parser.add_argument("command", nargs="+", choice=linux_cmds, type=str, help="Provide one or more arguments, must be strings. ")
-    
-    parser.add_argument("path", type=str, help="Pathname to complement commands.")
+        parser.add_argument("command", choices=linux_cmds, help="Command to run on Linux/macOS")
+
+    parser.add_argument("--path", default=".", help="Optional path argument")
     args = parser.parse_args()
 
-    if args in linux_cmds:
-        print(f"running {args} in linux...")
-        lin_cmd = str(args.strip())
-        try:
-            exe = subprocess.run(
-            lin_cmd, 
-            capture_output=True, 
-            text=True, 
-            check=True, 
-            timeout=5
-            )
-            print(f"{exe.stdout}")
-        except subprocess.CalledProcessError as e:
-            print(e.stderr.strip() if e.stderr else "Unknown error")
-            
-    if args in window_cmds:
-        print(f"running {args} in windows...")
-        wind_cmd = str(args.strip())
-        try:
-            exe = subprocess.run(
-            wind_cmd, 
-            capture_output=True, 
-            text=True, 
-            check=True, 
-            timeout=5
-            )
-            print(f"{exe.stdout}")
-        except subprocess.CalledProcessError as e:
-            print(e.stderr.strip() if e.stderr else "Unknown error")
+    print(f"Running '{args.command}' on {system}...")
+
+    try:
+        # If command supports path argument, include it
+        cmd = [args.command]
+        if args.path:
+            cmd.append(args.path)
+
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=5)
+        print(result.stdout.strip())
+    except subprocess.CalledProcessError as e:
+        print(e.stderr.strip() if e.stderr else "Unknown error")
+    except FileNotFoundError:
+        print("Command not found on this system.")
+    except subprocess.TimeoutExpired:
+        print("Command timed out.")
+
 
 def pkg_inst():
-    parser = argparse.ArgumentParser(description="Package Installing Automation")
+    parser = argparse.ArgumentParser(description="Automate package installation.")
     parser.add_argument(
-        "Installer", 
-        options=["brew", "pip", "apt"], 
-        nargs="+", 
-        required=True, 
-        help="The Package Installer Tool. e.g. brew, pip, etc"
-        )
+        "installer",
+        choices=["brew", "pip", "apt"],
+        help="The package manager to use (brew, pip, apt)."
+    )
     parser.add_argument(
-        "Package",
+        "package",
         type=str,
-        required=True,
-        help="Package to install with the installer. Dependent from the installer."
+        help="The package to install."
     )
     args = parser.parse_args()
 
-    if args.installer:
-        try:
-            package = str(args.strip())
-            install = subprocess.run(
-                package,
-                capture_output=True,
-                text=True,
-                check=True,
-                timeout=5
-            )
-            print(install.stdout.strip())
-        except subprocess.CalledProcessError as e:
-            print(e.stderr.strip() if e.stderr else "Unknown error")
+    print(f"Installing '{args.package}' using {args.installer}...")
 
+    try:
+        cmd = [args.installer, "install", args.package]
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=30)
+        print(result.stdout.strip())
+    except subprocess.CalledProcessError as e:
+        print(e.stderr.strip() if e.stderr else "Installation failed.")
+    except FileNotFoundError:
+        print(f"{args.installer} not found on this system.")
+    except subprocess.TimeoutExpired:
+        print("Installation command timed out.")
 
 
 
