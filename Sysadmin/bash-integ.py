@@ -6,7 +6,6 @@ Schedule tasks via Python to call Bash scripts (simulate cron jobs).
 """
 
 import subprocess
-import sys
 import argparse
 import platform
 
@@ -28,10 +27,10 @@ def run_commands():
 
     if args in linux_cmds:
         print(f"running {args} in linux...")
-        cmd = str(args.strip())
+        lin_cmd = str(args.strip())
         try:
             exe = subprocess.run(
-            cmd, 
+            lin_cmd, 
             capture_output=True, 
             text=True, 
             check=True, 
@@ -43,9 +42,10 @@ def run_commands():
             
     if args in window_cmds:
         print(f"running {args} in windows...")
+        wind_cmd = str(args.strip())
         try:
             exe = subprocess.run(
-            cmd, 
+            wind_cmd, 
             capture_output=True, 
             text=True, 
             check=True, 
@@ -55,6 +55,36 @@ def run_commands():
         except subprocess.CalledProcessError as e:
             print(e.stderr.strip() if e.stderr else "Unknown error")
 
+def pkg_inst():
+    parser = argparse.ArgumentParser(description="Package Installing Automation")
+    parser.add_argument(
+        "Installer", 
+        options=["brew", "pip", "apt"], 
+        nargs="+", 
+        required=True, 
+        help="The Package Installer Tool. e.g. brew, pip, etc"
+        )
+    parser.add_argument(
+        "Package",
+        type=str,
+        required=True,
+        help="Package to install with the installer. Dependent from the installer."
+    )
+    args = parser.parse_args()
+
+    if args.installer:
+        try:
+            package = str(args.strip())
+            install = subprocess.run(
+                package,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=5
+            )
+            print(install.stdout.strip())
+        except subprocess.CalledProcessError as e:
+            print(e.stderr.strip() if e.stderr else "Unknown error")
 
 
 
