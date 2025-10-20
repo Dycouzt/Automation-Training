@@ -8,6 +8,9 @@ Schedule tasks via Python to call Bash scripts (simulate cron jobs).
 import subprocess
 import argparse
 import platform
+from pathlib import Path
+import random
+
 
 def run_commands():
     linux_cmds = ["ls", "pwd", "who"]
@@ -68,5 +71,42 @@ def pkg_inst():
     except subprocess.TimeoutExpired:
         print("Installation command timed out.")
 
+def grep_awk():
+    parser = argparse.ArgumentParser(description="Command to execute")
+    parser.add_argument(
+        "command", 
+        required=True, 
+        choices=["grep", "awk"], 
+        type=str, 
+        help="Input one of the available choices..."
+        )
+    parser.add_argument(
+        "filename",
+        type=str,
+        required=True,
+        help="filename to execute command on...")
+    args = parser.parse_args()
 
+    try:
+        cmd = [args.command, args.filename]
+        result = subprocess.run(
+            cmd, 
+            capture_output=True, 
+            text=True, 
+            check=True,
+            )
+        return result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        print(e.stderr if e else f"Unknown error")
 
+base_dir = Path(__file__).resolve().parent
+
+def log_reports(log_files):
+    p = Path(log_files)
+
+    if p.exists() and p.suffix("\**log"):
+        for file in log_files:
+            grep_awk(file)
+
+if __name__ == "__main__":
+    
