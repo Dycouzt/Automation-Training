@@ -41,7 +41,6 @@ def run_commands():
     except subprocess.TimeoutExpired:
         print("Command timed out.")
 
-
 def pkg_inst():
     parser = argparse.ArgumentParser(description="Automate package installation.")
     parser.add_argument(
