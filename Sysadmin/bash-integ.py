@@ -9,9 +9,9 @@ import subprocess
 import argparse
 import platform
 from pathlib import Path
-import random
+import time
 
-
+# Run shell commands from python.
 def run_commands():
     linux_cmds = ["ls", "pwd", "who"]
     windows_cmds = ["dir", "where", "whoami"]
@@ -35,7 +35,13 @@ def run_commands():
         if args.path:
             cmd.append(args.path)
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True, timeout=5)
+        result = subprocess.run(
+            cmd, 
+            capture_output=True,
+            text=True, 
+            check=True, 
+            timeout=5
+            )
         print(result.stdout.strip())
     except subprocess.CalledProcessError as e:
         print(e.stderr.strip() if e.stderr else "Unknown error")
@@ -44,6 +50,8 @@ def run_commands():
     except subprocess.TimeoutExpired:
         print("Command timed out.")
 
+
+# Package installation using "brew", "pip" & "apt"
 def pkg_inst():
     parser = argparse.ArgumentParser(description="Automate package installation.")
     parser.add_argument(
@@ -71,6 +79,8 @@ def pkg_inst():
     except subprocess.TimeoutExpired:
         print("Installation command timed out.")
 
+
+# Parse grep/awk output for report generation.
 def grep_awk():
     parser = argparse.ArgumentParser(description="Command to execute")
     parser.add_argument(
@@ -95,7 +105,8 @@ def grep_awk():
             text=True, 
             check=True,
             )
-        return result.stdout.strip()
+        stdout = result.stdout.strip()
+        return stdout
     except subprocess.CalledProcessError as e:
         print(e.stderr if e else f"Unknown error")
 
@@ -108,5 +119,24 @@ def log_reports(log_files):
         for file in log_files:
             grep_awk(file)
 
-if __name__ == "__main__":
+
+# Chron jobs simulation. Scheduling bash schripts calling.
+def chron_jobs(bash_script):
+
+    p = Path(bash_script)
+
+    cmd = ["./", bash_script]
+
+    while True:
+        if bash_script.exists() and bash_script.suffix("*.sh"):
+            process = subprocess.Popen(
+                cmd,
+                stderr=subprocess.PIPE,
+                stdin=subprocess.PIPE,
+                )
+            stderr = process.communicate()
     
+            if stderr:
+                print(f"STDERR:", stderr.decode().strip())
+    
+        time.sleep(30)
