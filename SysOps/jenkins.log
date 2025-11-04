@@ -1,0 +1,8 @@
+Started by user admin
+Building in workspace /var/jenkins_home/workspace/test-project
+[test-project] $ /bin/sh -xe /tmp/jenkins123.sh
++ echo "Building..."
+Building...
++ sleep 10
+Finished: SUCCESS
+Build duration: 15 sec
