@@ -189,6 +189,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-for c in images:
-    print(c)
